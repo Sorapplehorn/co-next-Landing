@@ -4,224 +4,271 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>【提案】埼玉大学管弦楽団 新・後援組織の設立</title>
-  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- React & ReactDOM -->
   <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-  <!-- Babel -->
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Noto+Sans+JP:wght@400;700;900&display=swap');
-    body { font-family: 'Noto Sans JP', 'Inter', sans-serif; }
-    .nav-blur { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); }
-    .section-animate { animation: fadeInUp 0.6s ease-out forwards; }
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap');
+    body { font-family: 'Noto Sans JP', sans-serif; scroll-behavior: smooth; }
+    .phone-mockup {
+      width: 320px;
+      height: 640px;
+      border: 12px solid #1e293b;
+      border-radius: 40px;
+      overflow: hidden;
+      position: relative;
+      background: #f8fafc;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     }
+    .demo-container { display: flex; justify-content: center; align-items: center; padding: 2rem 0; }
+    .nav-blur { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); }
+    .gradient-text { background: linear-gradient(135deg, #059669 0%, #10b981 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
   </style>
 </head>
-<body class="bg-[#fafafa] text-slate-900 antialiased">
+<body class="bg-slate-50 text-slate-900">
   <div id="root"></div>
 
   <script type="text/babel">
-    const { useState } = React;
+    const { useState, useEffect } = React;
 
-    const Icon = ({ path, color = "currentColor" }) => (
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" dangerouslySetInnerHTML={{ __html: path }} />
-    );
+    // --- アイコン ---
+    const Icon = ({ name, className = "w-5 h-5" }) => {
+      const paths = {
+        alert: '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>',
+        heart: '<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>',
+        pie: '<path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/>',
+        users: '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
+        shield: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',
+        vote: '<path d="m9 12 2 2 4-4"/><path d="M5 18v-6a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v6"/><path d="M19 20a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8.5A2.5 2.5 0 0 1 7.5 6h9A2.5 2.5 0 0 1 19 8.5z"/>'
+      };
+      return <svg className={className} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" dangerouslySetInnerHTML={{ __html: paths[name] }} />;
+    };
 
-    const icons = {
-      alert: '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>',
-      users: '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
-      heart: '<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>',
-      shield: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',
-      code: '<polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>',
-      pie: '<path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/>',
-      vote: '<path d="m9 12 2 2 4-4"/><path d="M5 18v-6a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v6"/><path d="M19 20a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8.5A2.5 2.5 0 0 1 7.5 6h9A2.5 2.5 0 0 1 19 8.5z"/>'
+    // --- アプリデモコンポーネント ---
+    const AppDemo = () => {
+      const [tab, setTab] = useState('support');
+      return (
+        <div className="flex flex-col h-full bg-slate-50 text-[13px]">
+          <header className="bg-white px-4 py-3 border-b flex justify-between items-center shrink-0">
+            <span className="font-black text-emerald-700">CO-next</span>
+            <div className="w-6 h-6 rounded-full bg-slate-100 border flex items-center justify-center">
+              <Icon name="users" className="w-3 h-3 text-slate-400" />
+            </div>
+          </header>
+
+          <main className="flex-1 overflow-y-auto p-4 space-y-4">
+            {tab === 'support' && (
+              <div className="space-y-3 animate-in fade-in duration-300">
+                <p className="font-bold text-slate-800">支援プロジェクト</p>
+                <div className="bg-white p-4 rounded-2xl border shadow-sm space-y-3">
+                  <div className="flex justify-between items-start">
+                    <span className="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded text-[10px] font-bold">楽器修理</span>
+                    <span className="font-bold text-emerald-600">85%</span>
+                  </div>
+                  <h4 className="font-bold leading-tight">ティンパニのヘッド全面新調</h4>
+                  <div className="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+                    <div className="bg-emerald-500 h-full" style={{width: '85%'}}></div>
+                  </div>
+                  <button className="w-full bg-slate-900 text-white py-2 rounded-xl font-bold">1口500円から支援</button>
+                </div>
+              </div>
+            )}
+            {tab === 'stats' && (
+              <div className="space-y-3 animate-in fade-in duration-300">
+                <p className="font-bold text-slate-800">透明性ダッシュボード</p>
+                <div className="grid grid-cols-2 gap-2">
+                  <div className="bg-white p-3 rounded-2xl border text-center">
+                    <p className="text-[10px] text-slate-500 mb-1">残高</p>
+                    <p className="font-black text-emerald-600 text-sm">¥125,000</p>
+                  </div>
+                  <div className="bg-white p-3 rounded-2xl border text-center">
+                    <p className="text-[10px] text-slate-500 mb-1">送金累計</p>
+                    <p className="font-black text-slate-800 text-sm">¥790,000</p>
+                  </div>
+                </div>
+                <div className="bg-white p-4 rounded-2xl border space-y-2">
+                  <p className="text-[10px] font-bold text-slate-400">最近の送金履歴</p>
+                  <div className="flex justify-between items-center py-1 border-b border-slate-50">
+                    <span>チューバ修理費</span>
+                    <span className="text-red-500 font-bold">-¥45,000</span>
+                  </div>
+                </div>
+              </div>
+            )}
+            {tab === 'vote' && (
+              <div className="space-y-3 animate-in fade-in duration-300">
+                <p className="font-bold text-slate-800">承認投票 (アンバサダー)</p>
+                <div className="bg-white p-4 rounded-2xl border shadow-sm space-y-3">
+                  <div className="flex justify-between text-[10px]">
+                    <span className="text-slate-500 font-bold">起案: 現役会計</span>
+                    <span className="text-indigo-600 font-bold">12 / 20 承認済</span>
+                  </div>
+                  <h4 className="font-bold">打楽器運搬用トラック レンタル代</h4>
+                  <p className="text-xl font-black text-red-500">¥85,000</p>
+                  <div className="grid grid-cols-2 gap-2">
+                    <button className="bg-slate-100 py-2 rounded-xl font-bold">否認</button>
+                    <button className="bg-indigo-600 text-white py-2 rounded-xl font-bold">承認</button>
+                  </div>
+                </div>
+              </div>
+            )}
+          </main>
+
+          <nav className="bg-white border-t flex justify-around py-3 shrink-0">
+            <button onClick={() => setTab('support')} className={tab === 'support' ? 'text-emerald-600' : 'text-slate-400'}><Icon name="heart" className="w-5 h-5" /></button>
+            <button onClick={() => setTab('stats')} className={tab === 'stats' ? 'text-emerald-600' : 'text-slate-400'}><Icon name="pie" className="w-5 h-5" /></button>
+            <button onClick={() => setTab('vote')} className={tab === 'vote' ? 'text-emerald-600' : 'text-slate-400'}><Icon name="vote" className="w-5 h-5" /></button>
+          </nav>
+        </div>
+      );
     };
 
     const App = () => {
-      const [view, setView] = useState('main'); // 'main' or 'app'
-
-      const Header = () => (
-        <nav className="fixed top-0 w-full z-50 border-b border-slate-200 nav-blur">
-          <div className="max-w-4xl mx-auto px-5 py-4 flex justify-between items-center">
-            <div className="flex items-center gap-2">
-              <div className="w-7 h-7 bg-emerald-600 rounded flex items-center justify-center text-white font-black text-sm">C</div>
-              <span className="font-bold text-slate-800 tracking-tight">CO-next Project</span>
+      return (
+        <div className="pb-20">
+          {/* Header */}
+          <header className="fixed top-0 w-full z-50 nav-blur border-b border-slate-200">
+            <div className="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 bg-emerald-600 rounded-lg flex items-center justify-center text-white font-black">C</div>
+                <span className="font-black text-xl tracking-tight">CO-next</span>
+              </div>
+              <nav className="hidden md:flex gap-8 text-sm font-bold text-slate-600">
+                <a href="#vision" className="hover:text-emerald-600 transition">趣旨</a>
+                <a href="#org" className="hover:text-emerald-600 transition">組織案</a>
+                <a href="#demo" className="hover:text-emerald-600 transition">デモ体験</a>
+              </nav>
             </div>
-            <div className="flex gap-4">
-              <button 
-                onClick={() => setView('main')}
-                className={`text-xs font-bold transition ${view === 'main' ? 'text-emerald-600' : 'text-slate-500 hover:text-emerald-600'}`}
-              >
-                組織案
-              </button>
-              <button 
-                onClick={() => setView('app')}
-                className={`text-xs font-bold transition ${view === 'app' ? 'text-emerald-600' : 'text-slate-500 hover:text-emerald-600'}`}
-              >
-                システム案
-              </button>
-            </div>
-          </div>
-        </nav>
-      );
+          </header>
 
-      const MainContent = () => (
-        <div className="space-y-20 section-animate">
           {/* Hero */}
-          <section className="text-center pt-24 pb-12 px-5">
-            <span className="bg-emerald-100 text-emerald-700 text-[10px] font-black px-3 py-1 rounded-full tracking-widest uppercase mb-6 inline-block">
-              For Our Orchestra Generations
-            </span>
-            <h1 className="text-3xl md:text-5xl font-black text-slate-900 leading-[1.2] mb-8">
-              伝統の音を、<br /><span className="text-emerald-600 underline decoration-emerald-200 decoration-8 underline-offset-4">次代へ繋ぐインフラ</span>を。
+          <section className="pt-32 pb-20 px-6 max-w-5xl mx-auto text-center">
+            <h1 className="text-4xl md:text-6xl font-black mb-8 leading-[1.1] tracking-tighter">
+              伝統の音を、<br /><span className="gradient-text">次代へ繋ぐインフラ</span>を共に。
             </h1>
-            <p className="max-w-2xl mx-auto text-slate-600 leading-relaxed text-sm md:text-base">
-              国立大学の予算削減や物価高により、現役生たちの活動環境はかつてないほど厳しくなっています。
-              卒団しても無理なく、透明性を持って彼らを支え続けられる「新しいOBOG会」を一緒に作りませんか？
-            </p>
-          </section>
-
-          {/* Challenges */}
-          <section className="px-5 max-w-5xl mx-auto grid md:grid-cols-2 gap-6">
-            <div className="bg-white p-8 rounded-3xl shadow-sm border border-slate-200">
-              <div className="text-red-500 mb-5"><Icon path={icons.alert} /></div>
-              <h2 className="text-xl font-bold mb-4">現役生が抱える「構造的危機」</h2>
-              <p className="text-sm text-slate-600 leading-relaxed">
-                楽器の修理費や消耗品、ホール代の急騰。音楽に没頭すべき後輩たちが、資金繰りのために活動を縮小せざるを得ない現状があります。これまでの「単発の寄付」だけでは解決できない段階に来ています。
-              </p>
-            </div>
-            <div className="bg-white p-8 rounded-3xl shadow-sm border border-slate-200">
-              <div className="text-amber-500 mb-5"><Icon path={icons.users} /></div>
-              <h2 className="text-xl font-bold mb-4">私たちが避けたい「重い組織」</h2>
-              <p className="text-sm text-slate-600 leading-relaxed">
-                従来のOBOG会は「会長・役員」への実務負担が重すぎました。誰もやりたがらない「役職の押し付け合い」を終わらせるため、実務を人に依存しないシステムへの転換を提案します。
-              </p>
-            </div>
-          </section>
-
-          {/* Organizational Proposal */}
-          <section className="px-5 max-w-4xl mx-auto space-y-8">
-            <h2 className="text-2xl font-black text-center text-slate-900">新・後援組織の運営モデル</h2>
-            <div className="space-y-4">
-              <div className="flex gap-5 p-6 bg-emerald-50 rounded-3xl border border-emerald-100">
-                <div className="shrink-0 w-10 h-10 bg-white rounded-full flex items-center justify-center text-emerald-600 shadow-sm"><Icon path={icons.shield} /></div>
-                <div>
-                  <h3 className="font-bold mb-1">自律分散型ガバナンス</h3>
-                  <p className="text-sm text-slate-600 leading-relaxed">会長や理事を置かず、実務の9割をシステム化します。特定の個人に重責を負わせない「自律運営」を目指します。</p>
-                </div>
-              </div>
-              <div className="flex gap-5 p-6 bg-blue-50 rounded-3xl border border-blue-100">
-                <div className="shrink-0 w-10 h-10 bg-white rounded-full flex items-center justify-center text-blue-600 shadow-sm"><Icon path={icons.users} /></div>
-                <div>
-                  <h3 className="font-bold mb-1">アンバサダー制</h3>
-                  <p className="text-sm text-slate-600 leading-relaxed">各卒団代から「アンバサダー（連絡係）」を1名選出。役割は同期への周知と、アプリ上での資金執行承認ボタンを押すだけです。</p>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* Development Status */}
-          <section className="px-5 max-w-3xl mx-auto">
-            <div className="bg-slate-900 text-white p-8 rounded-[2rem] shadow-xl relative overflow-hidden">
-              <div className="absolute top-0 right-0 p-8 opacity-10"><Icon path={icons.code} /></div>
-              <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
-                <Icon path={icons.code} color="#34d399" />
-                私たちが責任を持って開発します
-              </h2>
-              <p className="text-sm text-slate-300 leading-relaxed mb-6">
-                この組織の核となるWebアプリ「CO-next」の開発・運用は、発案有志（私たち）が中心となって進めます。外部業者への委託費用をかけず、自分たちの手で維持可能なコストで構築します。
-              </p>
-              <button 
-                onClick={() => { setView('app'); window.scrollTo(0, 0); }}
-                className="w-full bg-emerald-500 hover:bg-emerald-400 text-white py-4 rounded-2xl font-bold transition shadow-lg shadow-emerald-500/20"
-              >
-                アプリの具体的な仕様を見る
-              </button>
-            </div>
-          </section>
-
-          {/* Closing */}
-          <section id="contact" className="text-center py-16 px-5 border-t border-slate-200">
-            <h2 className="text-2xl font-black mb-6">まずは議論の輪に入りませんか？</h2>
-            <p className="text-sm text-slate-600 mb-10 leading-relaxed">
-              これはまだ「ドラフト」です。同世代の仲間たちと一緒に練り上げていきたいと考えています。<br />
-              規約作りや運営、技術面で協力してくれる方はもちろん、まずは話を聞いてみたいという方も歓迎です。
+            <p className="text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed mb-10">
+              国立大学の予算削減と物価高騰により、現役生たちの活動環境は危機的な状況にあります。
+              「重い役職」に縛られず、全世代で後輩を支え続けるための新しいOBOG会の形を提案します。
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href="#" className="bg-emerald-600 hover:bg-emerald-500 text-white px-10 py-4 rounded-full font-bold shadow-lg transition">LINEで連絡する</a>
-              <a href="#" className="bg-slate-200 hover:bg-slate-300 text-slate-700 px-10 py-4 rounded-full font-bold transition">Discordに参加</a>
+              <a href="#demo" className="bg-slate-900 text-white px-10 py-4 rounded-full font-bold shadow-xl hover:bg-slate-800 transition">デモを体験する</a>
+              <a href="#vision" className="bg-white border border-slate-200 px-10 py-4 rounded-full font-bold hover:bg-slate-50 transition">設立の背景</a>
             </div>
           </section>
-        </div>
-      );
 
-      const AppContent = () => (
-        <div className="pt-24 pb-20 px-5 max-w-3xl mx-auto section-animate space-y-12">
-          <div className="space-y-4">
-            <h2 className="text-3xl font-black text-slate-900">CO-next アプリ構想</h2>
-            <p className="text-slate-600 text-sm leading-relaxed">
-              「不透明さ」「役職の負担」「世代間の断絶」をテクノロジーで解決するための、専用プラットフォーム案です。
+          {/* Vision/Problem */}
+          <section id="vision" className="py-24 bg-white border-y border-slate-200 px-6">
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-3xl font-black text-center mb-16">なぜ、今新しい組織が必要なのか</h2>
+              <div className="grid md:grid-cols-3 gap-8">
+                <div className="space-y-4">
+                  <div className="w-12 h-12 bg-red-50 text-red-500 rounded-2xl flex items-center justify-center"><Icon name="alert" /></div>
+                  <h3 className="font-bold text-xl">現役生の負担増</h3>
+                  <p className="text-sm text-slate-500 leading-relaxed">楽器の修理費やホール代が急騰。音楽に没頭すべき学生が資金繰りに苦しんでいます。</p>
+                </div>
+                <div className="space-y-4">
+                  <div className="w-12 h-12 bg-slate-100 text-slate-500 rounded-2xl flex items-center justify-center"><Icon name="users" /></div>
+                  <h3 className="font-bold text-xl">支援の断絶</h3>
+                  <p className="text-sm text-slate-500 leading-relaxed">卒団後の縁が切れやすく、支援したくても窓口がない「単発の寄付」で終わる現状があります。</p>
+                </div>
+                <div className="space-y-4">
+                  <div className="w-12 h-12 bg-amber-50 text-amber-500 rounded-2xl flex items-center justify-center"><Icon name="shield" /></div>
+                  <h3 className="font-bold text-xl">旧来モデルの限界</h3>
+                  <p className="text-sm text-slate-500 leading-relaxed">特定の役員に負担が集中する「重い組織」は、もはや持続可能ではありません。</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Organization Model */}
+          <section id="org" className="py-24 px-6 max-w-4xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl font-black mb-4">会長不在の「自律分散型」組織</h2>
+              <p className="text-slate-600">実務の9割をシステム化し、特定個人に依存しない運営を目指します。</p>
+            </div>
+            <div className="space-y-6">
+              <div className="bg-white p-8 rounded-[2.5rem] border border-slate-200 shadow-sm flex gap-6 items-start transition hover:shadow-md">
+                <div className="shrink-0 w-14 h-14 bg-emerald-50 text-emerald-600 rounded-3xl flex items-center justify-center shadow-sm"><Icon name="shield" className="w-6 h-6" /></div>
+                <div>
+                  <h3 className="text-xl font-bold mb-2 text-slate-800">運営の実務はシステムが担当</h3>
+                  <p className="text-slate-500 text-sm leading-relaxed">集金、名簿管理、使途報告。今まで人間が頑張っていた作業は、専用アプリ「CO-next」がすべて自動で行います。</p>
+                </div>
+              </div>
+              <div className="bg-white p-8 rounded-[2.5rem] border border-slate-200 shadow-sm flex gap-6 items-start transition hover:shadow-md">
+                <div className="shrink-0 w-14 h-14 bg-blue-50 text-blue-600 rounded-3xl flex items-center justify-center shadow-sm"><Icon name="vote" className="w-6 h-6" /></div>
+                <div>
+                  <h3 className="text-xl font-bold mb-2 text-slate-800">アンバサダー承認投票</h3>
+                  <p className="text-slate-500 text-sm leading-relaxed">各代のアンバサダー（連絡係）がスマホで「承認」を押すことで、大きな資金の引き出しが自動決定される民主的な仕組みです。</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Demo Section */}
+          <section id="demo" className="py-24 bg-slate-900 text-white overflow-hidden">
+            <div className="max-w-5xl mx-auto px-6 flex flex-col md:flex-row items-center gap-16">
+              <div className="flex-1 space-y-8">
+                <h2 className="text-3xl md:text-4xl font-black">スマホで完結する、<br /><span className="text-emerald-400">次世代の支援体験</span></h2>
+                <p className="text-slate-400 leading-relaxed">
+                  右側のスマホ画面を実際に触ってみてください。
+                  一口500円からのクラファン型支援や、1円単位で使途がわかるダッシュボードなど、これからのOBOG会の「基盤」を体験できます。
+                </p>
+                <div className="space-y-4">
+                  <div className="flex items-center gap-3">
+                    <Icon name="check" className="text-emerald-500" />
+                    <span className="text-sm font-bold">Stripe連携による安全な決済</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Icon name="check" className="text-emerald-500" />
+                    <span className="text-sm font-bold">改ざん不可能な収支公開</span>
+                  </div>
+                </div>
+              </div>
+              <div className="flex-1 demo-container">
+                <div className="phone-mockup">
+                  <AppDemo />
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Dev Team / Commitment */}
+          <section className="py-24 px-6 max-w-3xl mx-auto text-center">
+            <h2 className="text-3xl font-black mb-8 text-slate-800">開発と将来の継続について</h2>
+            <div className="bg-white p-10 rounded-[2.5rem] border border-slate-200 shadow-sm space-y-6">
+              <p className="text-slate-600 leading-relaxed">
+                本アプリケーションの開発・保守は、発案有志（私たち）が責任を持って行います。外部への委託費用は発生しません。
+              </p>
+              <div className="p-6 bg-slate-50 rounded-2xl text-left border border-slate-100">
+                <h4 className="font-bold text-slate-800 mb-2 flex items-center gap-2">
+                  <Icon name="users" className="w-4 h-4" /> 属人化させない設計
+                </h4>
+                <p className="text-xs text-slate-500 leading-relaxed">
+                  技術スタックは標準的かつモダンなもの（React/Firebase等）を採用し、ドキュメントを完備します。ITスキルのある他のOBOGがいつでも引き継げる「オープンな仕組み」として構築します。
+                </p>
+              </div>
+            </div>
+          </section>
+
+          {/* CTA / Footer */}
+          <section className="py-20 px-6 bg-emerald-600 text-white text-center">
+            <h2 className="text-2xl font-black mb-6">一緒にこの仕組みを作っていきませんか？</h2>
+            <p className="text-emerald-50 mb-10 max-w-xl mx-auto text-sm leading-relaxed">
+              現在、設立準備委員会を立ち上げています。システムへの意見、規約作りのアドバイス、あるいは「壁打ち相手」として参加してくれる方を募集しています。
             </p>
-          </div>
-
-          <div className="grid gap-6">
-            <div className="bg-white p-6 rounded-3xl border border-slate-200 flex gap-5">
-              <div className="shrink-0 w-12 h-12 bg-pink-100 text-pink-600 rounded-2xl flex items-center justify-center"><Icon path={icons.heart} /></div>
-              <div>
-                <h3 className="font-bold text-lg mb-2 text-slate-800">1. クラファン型支援</h3>
-                <p className="text-sm text-slate-600">現役生が起案したプロジェクト（修理・購入等）に対し、スマホからクレジットカードで1口単位（500円〜）の寄付が可能です。誰の何に役立っているのかが直接見えます。</p>
-              </div>
+            <div className="flex flex-wrap justify-center gap-4">
+              <button className="bg-white text-emerald-600 px-10 py-4 rounded-full font-bold shadow-xl hover:bg-emerald-50 transition">メンバーに加わる</button>
+              <button className="bg-emerald-700 text-white px-10 py-4 rounded-full font-bold hover:bg-emerald-800 transition">お問い合わせ</button>
             </div>
+          </section>
 
-            <div className="bg-white p-6 rounded-3xl border border-slate-200 flex gap-5">
-              <div className="shrink-0 w-12 h-12 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center"><Icon path={icons.pie} /></div>
-              <div>
-                <h3 className="font-bold text-lg mb-2 text-slate-800">2. 透明性ダッシュボード</h3>
-                <p className="text-sm text-slate-600">現在のプール金残高や使途内訳をリアルタイムで公開。1円単位で履歴が自動記録されるため、会計報告の手間と不透明さを一掃します。</p>
-              </div>
-            </div>
-
-            <div className="bg-white p-6 rounded-3xl border border-slate-200 flex gap-5">
-              <div className="shrink-0 w-12 h-12 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center"><Icon path={icons.vote} /></div>
-              <div>
-                <h3 className="font-bold text-lg mb-2 text-slate-800">3. 自律型ガバナンス機能</h3>
-                <p className="text-sm text-slate-600">高額な送金要求があった場合、各代のアンバサダーに通知が飛びます。アプリ上で過半数が承認すれば送金が実行される、公平な意思決定をシステムで実現します。</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-slate-100 p-8 rounded-3xl">
-            <h3 className="font-bold mb-4 flex items-center gap-2 text-slate-800"><Icon path={icons.shield} /> システムの継続性</h3>
-            <p className="text-xs text-slate-600 leading-relaxed mb-4">
-              特定の個人がいなくなっても大丈夫なように、モダンな標準技術を採用し、ドキュメントを完備した「引き継ぎやすい設計」で開発します。ITスキルを持つ他のOBOGが、いつでもコミットできる状態を目指します。
-            </p>
-          </div>
-
-          <button 
-            onClick={() => { setView('main'); window.scrollTo(0, 0); }}
-            className="text-slate-500 font-bold text-sm underline underline-offset-4 block mx-auto py-8"
-          >
-            組織設立の提案に戻る
-          </button>
-        </div>
-      );
-
-      return (
-        <div className="min-h-screen">
-          <Header />
-          {view === 'main' ? <MainContent /> : <AppContent />}
-          <footer className="bg-white border-t border-slate-200 py-10 px-5 text-center">
-            <p className="text-[10px] text-slate-400 font-bold tracking-widest uppercase mb-2">CO-next Project Draft</p>
-            <p className="text-xs text-slate-500">埼玉大学管弦楽団 後援組織 設立準備委員会 有志一同</p>
+          <footer className="py-12 px-6 text-center text-slate-400 text-[10px] font-bold tracking-widest uppercase">
+            &copy; 2026 Saitama University Orchestra Post-Support Project (CO-next)
           </footer>
         </div>
       );
-    }
+    };
 
     const root = ReactDOM.createRoot(document.getElementById('root'));
     root.render(<App />);
