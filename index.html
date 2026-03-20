@@ -1,227 +1,249 @@
-import React from 'react';
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CO-next 設立提案書</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- React & ReactDOM -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <!-- Babel -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body class="bg-[#f8fafc] text-slate-800 font-sans selection:bg-emerald-200">
+  <div id="root"></div>
 
-// --- 軽量アイコン群 ---
-const IconShield = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2-1 4-2 7-2 2.5 0 4.5 1 6.5 2a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>;
-const IconUsers = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>;
-const IconSmartphone = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>;
-const IconAlertTriangle = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>;
-const IconLightbulb = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.9 1.2 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg>;
-const IconHeart = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>;
-const IconPieChart = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>;
-const IconCode = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>;
+  <script type="text/babel">
+    const { useState } = React;
 
-export default function App() {
-  return (
-    <div className="min-h-screen bg-[#f8fafc] font-sans text-slate-800 selection:bg-emerald-200">
-      
-      {/* 提案書ヘッダー */}
-      <header className="bg-white border-b border-slate-200 py-6 px-4 md:px-8">
-        <div className="max-w-4xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-          <div>
-            <p className="text-emerald-600 font-bold text-sm mb-1 tracking-wider">PROPOSAL DOCUMENT</p>
-            <h1 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">
-              埼玉大学管弦楽団 新後援組織<br className="hidden md:block" />「CO-next」設立のご提案
-            </h1>
-          </div>
-          <div className="text-left md:text-right text-sm text-slate-500 bg-slate-50 p-3 rounded-lg border border-slate-100">
-            <p className="font-bold text-slate-700 mb-1">発案・作成： 有志OB（設立準備委員会 準備室）</p>
-            <p>ステータス： <span className="text-amber-600 font-bold bg-amber-50 px-2 py-0.5 rounded">ドラフト（たたき台）</span></p>
-            <p className="text-xs mt-1">※本資料は議論のためのプロトタイプ案です</p>
-          </div>
-        </div>
-      </header>
+    // --- 軽量アイコン群 ---
+    const IconShield = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2-1 4-2 7-2 2.5 0 4.5 1 6.5 2a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>;
+    const IconUsers = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>;
+    const IconSmartphone = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>;
+    const IconAlertTriangle = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>;
+    const IconLightbulb = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.9 1.2 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg>;
+    const IconHeart = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>;
+    const IconPieChart = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>;
+    const IconCode = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>;
 
-      <main className="max-w-4xl mx-auto px-4 py-12 md:py-16 space-y-20 md:space-y-24">
-
-        {/* はじめに */}
-        <section className="bg-white p-8 md:p-10 rounded-2xl shadow-sm border border-slate-200 relative overflow-hidden">
-          <div className="absolute top-0 left-0 w-2 h-full bg-emerald-500"></div>
-          <h2 className="text-2xl font-bold mb-6 text-slate-900">はじめに：先輩方へ</h2>
-          <div className="prose prose-slate max-w-none text-slate-700 leading-relaxed space-y-4">
-            <p>
-              日頃より、現役楽団への温かいご支援をいただきありがとうございます。
-              今回、私から<strong>新しいカタチのOBOG会（後援組織）</strong>の立ち上げをご提案したく、この資料（たたき台）を作成いたしました。
-            </p>
-            <p>
-              私がこの提案に至った理由は、今の現役生たちが直面している<strong>「金銭的負担の限界」</strong>、そして従来のOBOG会が抱えがちな<strong>「役員負担の重さ」</strong>という2つの課題を、テクノロジーの力で同時に解決できるのではないかと考えたからです。
-            </p>
-            <p>
-              これはあくまで「一人のOBからの構想」であり、まだ何も決定していません。
-              先輩方には、ぜひこの「たたき台」をご覧いただき、ご批判やアドバイスをいただきながら、一緒に持続可能な支援の仕組みを作っていければと考えております。
-            </p>
-          </div>
-        </section>
-
-        {/* 1. 現状の課題 */}
-        <section>
-          <div className="flex items-center gap-3 mb-8">
-            <IconAlertTriangle className="w-8 h-8 text-red-500" />
-            <h2 className="text-2xl md:text-3xl font-black text-slate-900">1. なぜ、今新しい組織が必要なのか</h2>
-          </div>
-          <p className="text-slate-600 mb-8 leading-relaxed">
-            現在、我々の楽団を取り巻く環境は大きく変化しており、以下の「構造的な危機」に直面していると私は捉えています。
-          </p>
-
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="bg-white p-6 rounded-xl border border-red-100 shadow-sm relative">
-              <span className="absolute -top-3 -left-3 w-8 h-8 bg-red-100 text-red-600 font-black rounded-full flex items-center justify-center border-2 border-white">1</span>
-              <h3 className="font-bold text-lg text-slate-900 mb-3">現役生の金銭的負担の限界</h3>
-              <p className="text-sm text-slate-600 leading-relaxed">
-                国立大学の予算削減に加え、近年の物価高により楽器のメンテナンス費やホール代が急騰しています。音楽に没頭すべき学生が、資金繰りのために活動を縮小せざるを得ない状況です。
-              </p>
-            </div>
-            <div className="bg-white p-6 rounded-xl border border-amber-100 shadow-sm relative">
-              <span className="absolute -top-3 -left-3 w-8 h-8 bg-amber-100 text-amber-600 font-black rounded-full flex items-center justify-center border-2 border-white">2</span>
-              <h3 className="font-bold text-lg text-slate-900 mb-3">旧来のOBOG会の「役員負担」</h3>
-              <p className="text-sm text-slate-600 leading-relaxed">
-                従来のOBOG会は「会長」や「役員」への実務負担（名簿管理、集金、連絡）が重すぎます。「誰も役員をやりたがらない」重い組織形態は、もはや持続可能ではありません。
-              </p>
-            </div>
-            <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm relative md:col-span-2">
-              <span className="absolute -top-3 -left-3 w-8 h-8 bg-slate-200 text-slate-600 font-black rounded-full flex items-center justify-center border-2 border-white">3</span>
-              <h3 className="font-bold text-lg text-slate-900 mb-3">支援と世代の「断絶」</h3>
-              <p className="text-sm text-slate-600 leading-relaxed">
-                卒団と同時に楽団との縁が切れてしまう現状があります。「後輩を支援したい」という気持ちがあっても、そのための気軽な窓口や、現役の様子を知る手段がありません。
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* 2. 解決策の提案 */}
-        <section>
-          <div className="flex items-center gap-3 mb-8">
-            <IconLightbulb className="w-8 h-8 text-emerald-500" />
-            <h2 className="text-2xl md:text-3xl font-black text-slate-900">2. 解決策：後援インフラ「CO-next」の提案</h2>
-          </div>
-          <p className="text-slate-600 mb-8 leading-relaxed">
-            これらの課題に対し、私は<strong>「ITシステムによる自動運営」</strong>をベースとした新しい後援組織「CO-next」の設立を提案します。
-            「重い組織」ではなく、スマホ一つで全世代が緩やかに繋がるプラットフォームです。
-          </p>
-
-          <div className="space-y-6">
-            <div className="flex gap-4 p-6 bg-white rounded-xl border border-slate-200 shadow-sm">
-              <div className="shrink-0 w-12 h-12 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center">
-                <IconUsers />
-              </div>
+    function App() {
+      return (
+        <div className="min-h-screen pb-12">
+          {/* 提案書ヘッダー */}
+          <header className="bg-white border-b border-slate-200 py-6 px-4 md:px-8">
+            <div className="max-w-4xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
               <div>
-                <h3 className="font-bold text-lg text-slate-900 mb-2">提案①：会長不在の「自律分散型」モデル</h3>
-                <p className="text-sm text-slate-600 leading-relaxed mb-4">
-                  特定の個人に責任を集中させません。「名誉代表」として長老世代に名前はお借りしつつも、実務の9割はシステムが担います。<br />
-                  各代からは連絡係として「アンバサダー」を1名選出いただき、資金執行の際はアプリ上で<strong>「過半数の承認ボタン」</strong>を押すだけで決定する仕組み（DAO的アプローチ）を想定しています。
+                <p className="text-emerald-600 font-bold text-sm mb-1 tracking-wider">PROPOSAL DOCUMENT</p>
+                <h1 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">
+                  埼玉大学管弦楽団 新後援組織<br className="hidden md:block" />「CO-next」設立のご提案
+                </h1>
+              </div>
+              <div className="text-left md:text-right text-sm text-slate-500 bg-slate-50 p-3 rounded-lg border border-slate-100 w-full md:w-auto">
+                <p className="font-bold text-slate-700 mb-1">発案・作成： 有志OB（設立準備委員会 準備室）</p>
+                <p>ステータス： <span className="text-amber-600 font-bold bg-amber-50 px-2 py-0.5 rounded">ドラフト（たたき台）</span></p>
+                <p className="text-xs mt-1">※本資料は議論のためのプロトタイプ案です</p>
+              </div>
+            </div>
+          </header>
+
+          <main className="max-w-4xl mx-auto px-4 py-12 md:py-16 space-y-20 md:space-y-24">
+
+            {/* はじめに */}
+            <section className="bg-white p-8 md:p-10 rounded-2xl shadow-sm border border-slate-200 relative overflow-hidden">
+              <div className="absolute top-0 left-0 w-2 h-full bg-emerald-500"></div>
+              <h2 className="text-2xl font-bold mb-6 text-slate-900">はじめに：先輩方へ</h2>
+              <div className="prose prose-slate max-w-none text-slate-700 leading-relaxed space-y-4">
+                <p>
+                  日頃より、現役楽団への温かいご支援をいただきありがとうございます。
+                  今回、私から<strong>新しいカタチのOBOG会（後援組織）</strong>の立ち上げをご提案したく、この資料（たたき台）を作成いたしました。
+                </p>
+                <p>
+                  私がこの提案に至った理由は、今の現役生たちが直面している<strong>「金銭的負担の限界」</strong>、そして従来のOBOG会が抱えがちな<strong>「役員負担の重さ」</strong>という2つの課題を、テクノロジーの力で同時に解決できるのではないかと考えたからです。
+                </p>
+                <p>
+                  これはあくまで「一人のOBからの構想」であり、まだ何も決定していません。
+                  先輩方には、ぜひこの「たたき台」をご覧いただき、ご批判やアドバイスをいただきながら、一緒に持続可能な支援の仕組みを作っていければと考えております。
                 </p>
               </div>
-            </div>
+            </section>
 
-            <div className="flex gap-4 p-6 bg-white rounded-xl border border-slate-200 shadow-sm">
-              <div className="shrink-0 w-12 h-12 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center">
-                <IconShield />
+            {/* 1. 現状の課題 */}
+            <section>
+              <div className="flex items-center gap-3 mb-8">
+                <IconAlertTriangle className="w-8 h-8 text-red-500" />
+                <h2 className="text-2xl md:text-3xl font-black text-slate-900">1. なぜ、今新しい組織が必要なのか</h2>
               </div>
-              <div>
-                <h3 className="font-bold text-lg text-slate-900 mb-2">提案②：システムによる圧倒的な「透明性」</h3>
-                <p className="text-sm text-slate-600 leading-relaxed">
-                  Stripe（決済サービス）と連携し、集まったお金の管理を自動化します。<br />
-                  「今いくらあって、何に使われたか」を、全会員がアプリのダッシュボードで1円単位で確認できるようにし、旧来組織にありがちな不透明さを払拭します。
-                </p>
-              </div>
-            </div>
+              <p className="text-slate-600 mb-8 leading-relaxed">
+                現在、我々の楽団を取り巻く環境は大きく変化しており、以下の「構造的な危機」に直面していると私は捉えています。
+              </p>
 
-            <div className="flex gap-4 p-6 bg-white rounded-xl border border-slate-200 shadow-sm">
-              <div className="shrink-0 w-12 h-12 bg-pink-50 text-pink-600 rounded-full flex items-center justify-center">
-                <IconSmartphone />
-              </div>
-              <div>
-                <h3 className="font-bold text-lg text-slate-900 mb-2">提案③：スマホで完結する「気軽な支援」</h3>
-                <p className="text-sm text-slate-600 leading-relaxed">
-                  「ティンパニの皮を新調したい」など、現役生が起案した具体的なプロジェクトに対し、クラウドファンディング感覚で<strong>1口500円から</strong>クレジットカードで直接支援できるUIを想定しています。
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* 3. アプリケーションのイメージ（MVP案） */}
-        <section className="bg-slate-800 text-white p-8 md:p-12 rounded-3xl relative overflow-hidden">
-          <div className="relative z-10">
-            <h2 className="text-2xl md:text-3xl font-black mb-6">3. アプリケーションのイメージ</h2>
-            <p className="text-slate-300 mb-10 text-sm leading-relaxed max-w-2xl">
-              ※現在、プロトタイプ（MVP：最小限の機能を持った試作品）の設計を進めています。以下はその主要機能のイメージです。
-            </p>
-
-            <div className="grid md:grid-cols-2 gap-10 mb-12">
-              <div>
-                <div className="flex items-center gap-3 mb-4">
-                  <IconHeart className="w-6 h-6 text-pink-400" />
-                  <h3 className="font-bold text-lg">支援機能（クラファン型）</h3>
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="bg-white p-6 rounded-xl border border-red-100 shadow-sm relative">
+                  <span className="absolute -top-3 -left-3 w-8 h-8 bg-red-100 text-red-600 font-black rounded-full flex items-center justify-center border-2 border-white">1</span>
+                  <h3 className="font-bold text-lg text-slate-900 mb-3">現役生の金銭的負担の限界</h3>
+                  <p className="text-sm text-slate-600 leading-relaxed">
+                    国立大学の予算削減に加え、近年の物価高により楽器のメンテナンス費やホール代が急騰しています。音楽に没頭すべき学生が、資金繰りのために活動を縮小せざるを得ない状況です。
+                  </p>
                 </div>
-                <ul className="space-y-3 text-sm text-slate-300">
-                  <li className="flex items-start"><span className="text-emerald-400 mr-2">✔</span>現役生が起案したプロジェクトの閲覧</li>
-                  <li className="flex items-start"><span className="text-emerald-400 mr-2">✔</span>Stripe連携による一口単位（500円〜）の寄付</li>
-                  <li className="flex items-start"><span className="text-emerald-400 mr-2">✔</span>プロフィールへの「支援バッジ」付与</li>
-                </ul>
+                <div className="bg-white p-6 rounded-xl border border-amber-100 shadow-sm relative">
+                  <span className="absolute -top-3 -left-3 w-8 h-8 bg-amber-100 text-amber-600 font-black rounded-full flex items-center justify-center border-2 border-white">2</span>
+                  <h3 className="font-bold text-lg text-slate-900 mb-3">旧来のOBOG会の「役員負担」</h3>
+                  <p className="text-sm text-slate-600 leading-relaxed">
+                    従来のOBOG会は「会長」や「役員」への実務負担（名簿管理、集金、連絡）が重すぎます。「誰も役員をやりたがらない」重い組織形態は、もはや持続可能ではありません。
+                  </p>
+                </div>
+                <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm relative md:col-span-2">
+                  <span className="absolute -top-3 -left-3 w-8 h-8 bg-slate-200 text-slate-600 font-black rounded-full flex items-center justify-center border-2 border-white">3</span>
+                  <h3 className="font-bold text-lg text-slate-900 mb-3">支援と世代の「断絶」</h3>
+                  <p className="text-sm text-slate-600 leading-relaxed">
+                    卒団と同時に楽団との縁が切れてしまう現状があります。「後輩を支援したい」という気持ちがあっても、そのための気軽な窓口や、現役の様子を知る手段がありません。
+                  </p>
+                </div>
+              </div>
+            </section>
+
+            {/* 2. 解決策の提案 */}
+            <section>
+              <div className="flex items-center gap-3 mb-8">
+                <IconLightbulb className="w-8 h-8 text-emerald-500" />
+                <h2 className="text-2xl md:text-3xl font-black text-slate-900">2. 解決策：後援インフラ「CO-next」の提案</h2>
+              </div>
+              <p className="text-slate-600 mb-8 leading-relaxed">
+                これらの課題に対し、私は<strong>「ITシステムによる自動運営」</strong>をベースとした新しい後援組織「CO-next」の設立を提案します。
+                「重い組織」ではなく、スマホ一つで全世代が緩やかに繋がるプラットフォームです。
+              </p>
+
+              <div className="space-y-6">
+                <div className="flex flex-col md:flex-row gap-4 p-6 bg-white rounded-xl border border-slate-200 shadow-sm">
+                  <div className="shrink-0 w-12 h-12 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center">
+                    <IconUsers />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-lg text-slate-900 mb-2">提案①：会長不在の「自律分散型」モデル</h3>
+                    <p className="text-sm text-slate-600 leading-relaxed mb-4">
+                      特定の個人に責任を集中させません。「名誉代表」として長老世代に名前はお借りしつつも、実務の9割はシステムが担います。<br />
+                      各代からは連絡係として「アンバサダー」を1名選出いただき、資金執行の際はアプリ上で<strong>「過半数の承認ボタン」</strong>を押すだけで決定する仕組み（DAO的アプローチ）を想定しています。
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex flex-col md:flex-row gap-4 p-6 bg-white rounded-xl border border-slate-200 shadow-sm">
+                  <div className="shrink-0 w-12 h-12 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center">
+                    <IconShield />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-lg text-slate-900 mb-2">提案②：システムによる圧倒的な「透明性」</h3>
+                    <p className="text-sm text-slate-600 leading-relaxed">
+                      Stripe（決済サービス）と連携し、集まったお金の管理を自動化します。<br />
+                      「今いくらあって、何に使われたか」を、全会員がアプリのダッシュボードで1円単位で確認できるようにし、旧来組織にありがちな不透明さを払拭します。
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex flex-col md:flex-row gap-4 p-6 bg-white rounded-xl border border-slate-200 shadow-sm">
+                  <div className="shrink-0 w-12 h-12 bg-pink-50 text-pink-600 rounded-full flex items-center justify-center">
+                    <IconSmartphone />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-lg text-slate-900 mb-2">提案③：スマホで完結する「気軽な支援」</h3>
+                    <p className="text-sm text-slate-600 leading-relaxed">
+                      「ティンパニの皮を新調したい」など、現役生が起案した具体的なプロジェクトに対し、クラウドファンディング感覚で<strong>1口500円から</strong>クレジットカードで直接支援できるUIを想定しています。
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* 3. アプリケーションのイメージ（MVP案） */}
+            <section className="bg-slate-800 text-white p-8 md:p-12 rounded-3xl relative overflow-hidden">
+              <div className="relative z-10">
+                <h2 className="text-2xl md:text-3xl font-black mb-6">3. アプリケーションのイメージ</h2>
+                <p className="text-slate-300 mb-10 text-sm leading-relaxed max-w-2xl">
+                  ※現在、プロトタイプ（MVP：最小限の機能を持った試作品）の設計を進めています。以下はその主要機能のイメージです。
+                </p>
+
+                <div className="grid md:grid-cols-2 gap-10 mb-12">
+                  <div>
+                    <div className="flex items-center gap-3 mb-4">
+                      <IconHeart className="w-6 h-6 text-pink-400" />
+                      <h3 className="font-bold text-lg">支援機能（クラファン型）</h3>
+                    </div>
+                    <ul className="space-y-3 text-sm text-slate-300">
+                      <li className="flex items-start"><span className="text-emerald-400 mr-2">✔</span>現役生が起案したプロジェクトの閲覧</li>
+                      <li className="flex items-start"><span className="text-emerald-400 mr-2">✔</span>Stripe連携による一口単位（500円〜）の寄付</li>
+                      <li className="flex items-start"><span className="text-emerald-400 mr-2">✔</span>プロフィールへの「支援バッジ」付与</li>
+                    </ul>
+                  </div>
+                  
+                  <div>
+                    <div className="flex items-center gap-3 mb-4">
+                      <IconPieChart className="w-6 h-6 text-blue-400" />
+                      <h3 className="font-bold text-lg">透明性ダッシュボード機能</h3>
+                    </div>
+                    <ul className="space-y-3 text-sm text-slate-300">
+                      <li className="flex items-start"><span className="text-emerald-400 mr-2">✔</span>現在のプール金残高と送金済累計額の表示</li>
+                      <li className="flex items-start"><span className="text-emerald-400 mr-2">✔</span>資金の使途内訳（グラフ表示）</li>
+                      <li className="flex items-start"><span className="text-emerald-400 mr-2">✔</span>自動記録される「最近の資金執行履歴」</li>
+                    </ul>
+                  </div>
+                </div>
+
+                {/* 開発体制への言及 */}
+                <div className="bg-slate-900/50 border border-slate-700 p-6 rounded-2xl">
+                  <div className="flex items-center gap-2 mb-3">
+                    <IconCode className="w-5 h-5 text-emerald-400" />
+                    <h4 className="font-bold text-emerald-400">本システムの開発・運用体制について</h4>
+                  </div>
+                  <p className="text-sm text-slate-300 leading-relaxed mb-4">
+                    「誰が作るのか？外注費がかかるのでは？」とご懸念されるかもしれませんが、<strong>本アプリの開発・保守は、発案者である私が中心となって責任を持って行います。外部業者への高額な委託費用は発生しません。</strong>
+                  </p>
+                  <p className="text-sm text-slate-400 leading-relaxed">
+                    また、将来的な属人化（私が離脱した際に誰も保守できなくなるリスク）を防ぐため、一般的なモダンな技術スタックを採用し、ドキュメントを整備した上で、ITスキルのあるOBOGの皆様に引き継ぎやすいオープンな設計で構築します。
+                  </p>
+                </div>
+              </div>
+            </section>
+
+            {/* 4. 今後の進め方・ご相談 */}
+            <section className="bg-emerald-50 p-8 md:p-10 rounded-2xl border border-emerald-100">
+              <h2 className="text-2xl font-black text-slate-900 mb-6">4. 今後の進め方について（ご相談）</h2>
+              <div className="prose prose-slate max-w-none text-slate-700 leading-relaxed text-sm mb-8">
+                <p>
+                  繰り返しになりますが、本提案は一人のOBからの発案であり、独断で進めるつもりは毛頭ありません。
+                  この仕組みを本当に機能させるためには、各年代の先輩方のご意見とご協力が不可欠です。
+                </p>
+                <p>
+                  つきましては、本提案をたたき台として、以下の点について議論させていただきたく存じます。
+                </p>
               </div>
               
-              <div>
-                <div className="flex items-center gap-3 mb-4">
-                  <IconPieChart className="w-6 h-6 text-blue-400" />
-                  <h3 className="font-bold text-lg">透明性ダッシュボード機能</h3>
-                </div>
-                <ul className="space-y-3 text-sm text-slate-300">
-                  <li className="flex items-start"><span className="text-emerald-400 mr-2">✔</span>現在のプール金残高と送金済累計額の表示</li>
-                  <li className="flex items-start"><span className="text-emerald-400 mr-2">✔</span>資金の使途内訳（グラフ表示）</li>
-                  <li className="flex items-start"><span className="text-emerald-400 mr-2">✔</span>自動記録される「最近の資金執行履歴」</li>
+              <div className="bg-white p-6 rounded-xl border border-emerald-200 shadow-sm">
+                <h3 className="font-bold text-emerald-800 mb-4">検討いただきたい事項（例）</h3>
+                <ul className="list-disc pl-5 space-y-2 text-sm text-slate-700">
+                  <li>「CO-next」の構想（課題認識と解決アプローチ）に共感いただけるか</li>
+                  <li>アンバサダー制や名誉代表といった「運営体制」は現実的か</li>
+                  <li>アプリに求める機能、または懸念されるリスク（セキュリティ、規約等）は何か</li>
+                  <li>本プロジェクトの「設立準備委員会」に参画（またはアドバイス）いただけるか</li>
                 </ul>
               </div>
-            </div>
+            </section>
 
-            {/* 開発体制への言及（重要ポイント） */}
-            <div className="bg-slate-900/50 border border-slate-700 p-6 rounded-2xl">
-              <div className="flex items-center gap-2 mb-3">
-                <IconCode className="w-5 h-5 text-emerald-400" />
-                <h4 className="font-bold text-emerald-400">本システムの開発・運用体制について</h4>
-              </div>
-              <p className="text-sm text-slate-300 leading-relaxed mb-4">
-                「誰が作るのか？外注費がかかるのでは？」とご懸念されるかもしれませんが、<strong>本アプリの開発・保守は、発案者である私が中心となって責任を持って行います。外部業者への高額な委託費用は発生しません。</strong>
-              </p>
-              <p className="text-sm text-slate-400 leading-relaxed">
-                また、将来的な属人化（私が離脱した際に誰も保守できなくなるリスク）を防ぐため、一般的なモダンな技術スタックを採用し、ドキュメントを整備した上で、ITスキルのあるOBOGの皆様に引き継ぎやすいオープンな設計で構築します。
-              </p>
-            </div>
-          </div>
-        </section>
+            {/* フッター */}
+            <footer className="text-center pt-8 border-t border-slate-200 text-slate-500 text-sm">
+              <p>ご多忙の折に恐縮ですが、ご意見・ご批判を賜れますと幸いです。</p>
+              <p className="mt-2 font-bold">発案：有志OB（設立準備委員会 準備室）</p>
+            </footer>
 
-        {/* 4. 今後の進め方・ご相談 */}
-        <section className="bg-emerald-50 p-8 md:p-10 rounded-2xl border border-emerald-100">
-          <h2 className="text-2xl font-black text-slate-900 mb-6">4. 今後の進め方について（ご相談）</h2>
-          <div className="prose prose-slate max-w-none text-slate-700 leading-relaxed text-sm mb-8">
-            <p>
-              繰り返しになりますが、本提案は一人のOBからの発案であり、独断で進めるつもりは毛頭ありません。
-              この仕組みを本当に機能させるためには、各年代の先輩方のご意見とご協力が不可欠です。
-            </p>
-            <p>
-              つきましては、本提案をたたき台として、以下の点について議論させていただきたく存じます。
-            </p>
-          </div>
-          
-          <div className="bg-white p-6 rounded-xl border border-emerald-200 shadow-sm">
-            <h3 className="font-bold text-emerald-800 mb-4">検討いただきたい事項（例）</h3>
-            <ul className="list-disc pl-5 space-y-2 text-sm text-slate-700">
-              <li>「CO-next」の構想（課題認識と解決アプローチ）に共感いただけるか</li>
-              <li>アンバサダー制や名誉代表といった「運営体制」は現実的か</li>
-              <li>アプリに求める機能、または懸念されるリスク（セキュリティ、規約等）は何か</li>
-              <li>本プロジェクトの「設立準備委員会」に参画（またはアドバイス）いただけるか</li>
-            </ul>
-          </div>
-        </section>
+          </main>
+        </div>
+      );
+    }
 
-        {/* フッター */}
-        <footer className="text-center pt-8 border-t border-slate-200 text-slate-500 text-sm">
-          <p>ご多忙の折に恐縮ですが、ご意見・ご批判を賜れますと幸いです。</p>
-          <p className="mt-2 font-bold">発案：有志OB（設立準備委員会 準備室）</p>
-        </footer>
-
-      </main>
-    </div>
-  );
-}
-
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+</html>
 
