@@ -5,310 +5,316 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>埼玉大学管弦楽団 OBOG会 設立構想 & CO-next</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         body {
             font-family: 'Noto Sans JP', sans-serif;
-            background-color: #ffffff;
-            color: #1e293b;
+            background-color: #f8fafc;
+            color: #334155;
             margin: 0;
             padding: 0;
+            line-height: 1.8;
         }
         :root { color-scheme: light; }
         
-        .hero-pattern {
-            background-color: #ffffff;
-            background-image:  radial-gradient(#e2e8f0 0.5px, transparent 0.5px);
-            background-size: 24px 24px;
-        }
-
         .view-section { display: none; }
         .view-section.active { display: block; }
         
         .demo-frame {
-            max-width: 390px;
+            max-width: 414px;
             margin: 0 auto;
-            background: #f8fafc;
+            background: #ffffff;
             height: 800px;
             max-height: 85vh;
-            border-radius: 3.5rem;
-            border: 12px solid #0f172a;
+            border-radius: 2rem;
+            border: 8px solid #1e293b;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 50px 100px -20px rgba(0, 0, 0, 0.25);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
         
         .demo-tab-content { display: none; }
         .demo-tab-content.active { display: block; }
 
         .nav-active {
+            border-bottom: 2px solid #0284c7;
             color: #0284c7;
-            position: relative;
-        }
-        .nav-active::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: #0284c7;
         }
 
-        .fade-in { animation: fadeIn 0.5s ease-out forwards; }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* 箇条書きのスタイル調整 */
+        .concept-list { list-style-type: none; padding-left: 0; }
+        .concept-list li { position: relative; padding-left: 1.5em; margin-bottom: 0.5rem; }
+        .concept-list li::before { content: "・"; position: absolute; left: 0; color: #64748b; }
+        .concept-list .no-bullet { padding-left: 0; }
+        .concept-list .no-bullet::before { content: none; }
+        
+        h2.section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+        }
+        h2.section-title::before {
+            content: "◯";
+            color: #0284c7;
+            margin-right: 0.5rem;
+            font-size: 1.25rem;
         }
     </style>
 </head>
-<body class="antialiased selection:bg-sky-100">
+<body class="antialiased">
 
     <!-- Global Nav -->
-    <nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-slate-100 h-16">
-        <div class="max-w-6xl mx-auto px-6 h-full flex items-center justify-between">
-            <div class="flex items-center gap-2">
-                <div class="w-8 h-8 bg-slate-900 rounded-lg flex items-center justify-center">
-                    <i data-lucide="music" class="w-5 h-5 text-white"></i>
-                </div>
-                <span class="font-black text-slate-900 text-lg tracking-tighter">CO-next</span>
-            </div>
-            <div class="flex items-center gap-6">
-                <button onclick="switchMainView('lp')" id="tab-lp" class="text-sm font-bold nav-active transition-all">構想資料</button>
-                <button onclick="switchMainView('demo')" id="tab-demo" class="text-sm font-bold text-slate-400 hover:text-slate-600 transition-all flex items-center gap-1">
-                    <i data-lucide="play-circle" class="w-4 h-4"></i> デモ体験
+    <nav class="bg-white border-b border-slate-200 sticky top-0 z-50 h-16 shadow-sm">
+        <div class="max-w-5xl mx-auto px-6 h-full flex items-center justify-between">
+            <div class="font-bold text-slate-800">埼玉大学管弦楽団 OBOG会 設立構想</div>
+            <div class="flex gap-4 h-full">
+                <button onclick="switchMainView('lp')" id="tab-lp" class="px-2 font-bold text-sm h-full nav-active transition-colors">構想資料</button>
+                <button onclick="switchMainView('demo')" id="tab-demo" class="px-2 font-bold text-sm h-full text-slate-500 hover:text-slate-800 transition-colors flex items-center gap-1">
+                    <i data-lucide="smartphone" class="w-4 h-4"></i> アプリデモ
                 </button>
             </div>
         </div>
     </nav>
 
     <!-- ==========================================
-         LP VIEW
+         LP VIEW (構想資料)
     ========================================== -->
-    <div id="view-lp" class="view-section active pt-16">
-        <!-- Hero -->
-        <header class="hero-pattern py-24 lg:py-40 px-6 border-b border-slate-50">
-            <div class="max-w-4xl mx-auto text-center">
-                <h1 class="text-5xl lg:text-7xl font-black text-slate-900 mb-8 tracking-tighter leading-[1.1]">
-                    学生の「音」を、<br><span class="text-sky-600">システムで守る。</span>
-                </h1>
-                <p class="text-xl text-slate-500 mb-12 leading-relaxed max-w-2xl mx-auto font-medium">
-                    事務負担を極限まで削ぎ落とし、全世代の善意をダイレクトに現役へ届ける。埼玉大学管弦楽団のための新しい後援インフラ。
-                </p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <button onclick="switchMainView('demo')" class="bg-sky-600 text-white px-10 py-5 rounded-2xl font-bold hover:bg-sky-700 transition-all shadow-xl shadow-sky-100 flex items-center justify-center gap-2">
-                        デモアプリを動かす
-                        <i data-lucide="arrow-right" class="w-5 h-5"></i>
-                    </button>
-                    <a href="#details" class="bg-slate-50 text-slate-900 px-10 py-5 rounded-2xl font-bold hover:bg-slate-100 transition-all flex items-center justify-center">
-                        詳細を確認する
-                    </a>
-                </div>
-            </div>
-        </header>
-
-        <main id="details" class="max-w-4xl mx-auto px-6 py-32 space-y-40">
+    <div id="view-lp" class="view-section active py-12">
+        <div class="max-w-4xl mx-auto px-6">
             
-            <!-- 目的 -->
-            <section class="fade-in">
-                <div class="grid md:grid-cols-2 gap-16 items-start">
-                    <div>
-                        <h2 class="text-4xl font-black text-slate-900 mb-6 tracking-tight">設立の目的</h2>
-                        <p class="text-slate-500 leading-relaxed mb-6 font-medium">
-                            現在、埼玉大学管弦楽団には全世代を網羅する公式なOBOG会が存在しません。物価高や予算削減により、学生の負担はかつてないほど重くなっています。
-                        </p>
-                        <ul class="space-y-4">
-                            <li class="flex items-center gap-3 text-slate-700 font-bold">
-                                <i data-lucide="check-circle-2" class="text-sky-500 w-5 h-5"></i> 全世代横断的な繋がりの創出
-                            </li>
-                            <li class="flex items-center gap-3 text-slate-700 font-bold">
-                                <i data-lucide="check-circle-2" class="text-sky-500 w-5 h-5"></i> 現役支援の安定的・持続的な確立
-                            </li>
-                        </ul>
+            <header class="mb-12">
+                <h1 class="text-2xl md:text-3xl font-bold text-slate-900 border-l-4 border-sky-600 pl-4 mb-4">
+                    □埼玉大学管弦楽団　OBOG会　設立構想
+                </h1>
+            </header>
+
+            <div class="space-y-12">
+                
+                <!-- 目的 -->
+                <section class="bg-white p-8 rounded-xl shadow-sm border border-slate-200">
+                    <h2 class="section-title">目的</h2>
+                    <ul class="concept-list">
+                        <li>全世代が横断的に交流できる、新たなOBOGの繋がりを創出すること。</li>
+                        <li>現役の団員たちが、安心して音楽活動に打ち込める支援の枠組みを確立すること。</li>
+                    </ul>
+                </section>
+
+                <!-- 組織 -->
+                <section class="bg-white p-8 rounded-xl shadow-sm border border-slate-200">
+                    <h2 class="section-title">組織（アンバサダー制の導入）</h2>
+                    <ul class="concept-list">
+                        <li>これまで全世代型のOBOG会が存在しなかった理由の一つに、「会長や役員への実務負担の集中」という課題がありました。</li>
+                        <li>これを解消するため、本会では特定の個人に負担が偏る「役員集中型」の運営は行いません。代わりに、各代から1名の「アンバサダー（代議員）」を選出し、アンバサダーによる合議体で会の重要な意思決定を行う「アンバサダー制」を採用します。</li>
+                        <li>各種届出等に必要な「会の代表者（会長）」については、卒団直後（大学卒業後の新社会人、または大学院1年生）のメンバー1名に、1年交代で名義を担っていただきます。</li>
+                    </ul>
+                    <div class="mt-4 p-4 bg-slate-50 border-l-4 border-sky-600 text-sm text-slate-700">
+                        ※議事整理、進行、会計など、従来の組織で役員が担っていた実務的な要素は、新たに開発する後援会運営システム【CO-next】に集約し、システムの力で運営をサポートします。
                     </div>
-                    <div class="bg-slate-50 rounded-[2.5rem] p-10 border border-slate-100">
-                        <h3 class="font-black text-xl mb-6">支援のカタチと送金フロー</h3>
-                        <div class="space-y-8">
-                            <div>
-                                <h4 class="font-bold text-sky-600 text-sm uppercase tracking-wider mb-2 flex items-center gap-2"><i data-lucide="refresh-cw" class="w-4 h-4"></i> 会費（継続支援）</h4>
-                                <p class="text-sm text-slate-600 leading-relaxed font-medium">Stripe決済後、OBOG会の口座へプール。毎月末に「運営費用を差し引いた残高すべて」を、特別な承認フローなしで現役団へ自動送金します。</p>
+                </section>
+
+                <!-- 活動 -->
+                <section class="bg-white p-8 rounded-xl shadow-sm border border-slate-200">
+                    <h2 class="section-title">活動</h2>
+                    <ul class="concept-list">
+                        <li>本会は、「交流」「支援」「広報」の3つを活動の柱とします。</li>
+                        <li class="no-bullet mt-4">
+                            <strong>交流︰</strong><br>
+                            OBOG同士、および現役団とOBOGの交流を促進します。現在、代ごとに分散して活動されている既存のOBOGオケの活動も尊重しつつ、オンライン・オフラインを問わず、全世代が交われる交流の場を提供します。
+                        </li>
+                        <li class="no-bullet mt-4">
+                            <strong>支援︰</strong><br>
+                            現役団、および現存するOBOGオケへの支援を行います。昨今の物価高騰によりオーケストラの運営コストは上昇しており、学生主体の現役団は経済的に厳しい状況にあります。<br>
+                            <div class="pl-4 border-l-2 border-slate-300 mt-2 text-slate-600">
+                                <p class="mb-2"><strong>① 会費（継続支援）</strong><br>本会の会費は運営資金を除き、原則としてすべて現役団への寄付金とします。（毎月、自動的に送金されます）</p>
+                                <p><strong>② スポット支援（用途指定寄付）</strong><br>打楽器の修理等、大規模な出費が見込まれる際には、寄付型クラウドファンディングのような仕組みを用い、「用途を指定したスポット支援」が可能なプロジェクトを都度立ち上げます。（現役からの証憑提出後、アンバサダーの承認をもって送金を実行します）</p>
                             </div>
-                            <hr class="border-slate-200">
-                            <div>
-                                <h4 class="font-bold text-amber-600 text-sm uppercase tracking-wider mb-2 flex items-center gap-2"><i data-lucide="target" class="w-4 h-4"></i> スポット支援（使途指定）</h4>
-                                <p class="text-sm text-slate-600 leading-relaxed font-medium">Stripe決済後、OBOG会の口座へプール。期限満了時などに現役団から請求書/領収書等を提示させ、アンバサダーの承認をもって送金を実行します。</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+                        </li>
+                        <li class="no-bullet mt-4">
+                            <strong>広報︰</strong><br>
+                            現役団やOBOGオケの演奏会情報などを広く発信します。全世代のOBOGネットワークを活用し、より多くの方々へアプローチすることを目指します。
+                        </li>
+                    </ul>
+                </section>
 
-            <!-- 組織 -->
-            <section class="fade-in">
-                <div class="text-center mb-16">
-                    <h2 class="text-4xl font-black text-slate-900 mb-4 tracking-tight">アンバサダー制 × 自動運営</h2>
-                    <p class="text-slate-500 font-medium max-w-2xl mx-auto">「誰かがやらなきゃいけない重い役職」をなくし、システムが事務局を代行します。</p>
-                </div>
-                <div class="grid md:grid-cols-3 gap-8">
-                    <div class="p-8 bg-white border border-slate-100 rounded-3xl shadow-sm hover:shadow-md transition-shadow">
-                        <i data-lucide="users" class="w-10 h-10 text-sky-500 mb-4"></i>
-                        <h4 class="font-bold text-lg mb-2">アンバサダー</h4>
-                        <p class="text-sm text-slate-500 leading-relaxed">各代1名の連絡役。主な役割は同期への周知と、スポット支援送金時の承認ボタンを押すだけ。</p>
+                <!-- 運営 -->
+                <section class="bg-white p-8 rounded-xl shadow-sm border border-slate-200">
+                    <h2 class="section-title">運営と会員制度</h2>
+                    <ul class="concept-list">
+                        <li class="no-bullet mb-2"><strong>・正会員︰</strong>入会金（1,000円程度）および年会費（1,000円/年 程度）をお支払いいただき、継続的にご支援いただける方。</li>
+                        <li class="no-bullet"><strong>・準会員︰</strong>埼玉大学管弦楽団を卒団（退団された方も任意で可）されたすべてのメンバー。会費の負担はなく、コミュニティへの参加が可能です。</li>
+                    </ul>
+                    <div class="mt-2 text-sm text-slate-600">
+                        ※正会員・準会員を問わず、すべての会員が都度寄付を行う「スポット支援（用途指定寄付）」に参加可能です。
                     </div>
-                    <div class="p-8 bg-white border border-slate-100 rounded-3xl shadow-sm hover:shadow-md transition-shadow">
-                        <i data-lucide="refresh-cw" class="w-10 h-10 text-sky-500 mb-4"></i>
-                        <h4 class="font-bold text-lg mb-2">1年交代の会長</h4>
-                        <p class="text-sm text-slate-500 leading-relaxed">対外的な口座名義などは卒団直後の1名が担当。1年で交代するため、特定の人に責任が定着しません。</p>
-                    </div>
-                    <div class="p-8 bg-white border border-slate-100 rounded-3xl shadow-sm hover:shadow-md transition-shadow">
-                        <i data-lucide="zap" class="w-10 h-10 text-sky-500 mb-4"></i>
-                        <h4 class="font-bold text-lg mb-2">システムが実行</h4>
-                        <p class="text-sm text-slate-500 leading-relaxed">名簿作成、集金、定期送金、活動報告の発信。実務の9割を「CO-next」が自動で行います。</p>
-                    </div>
-                </div>
-            </section>
+                    <ul class="concept-list mt-6">
+                        <li class="no-bullet">
+                            <strong>・現役団員の皆様へのお願い︰</strong><br>
+                            どのような支援が必要とされているかを明確にし、OBOG会員が支援の意義を感じやすくなるよう、システム【CO-next】を通じて定期的な「活動報告」の実施をお願いいたします。
+                        </li>
+                    </ul>
+                </section>
 
-        </main>
-
-        <footer class="bg-slate-900 text-white py-20 px-6 text-center">
-            <h3 class="text-2xl font-black mb-8 tracking-tight">伝統を、止めるな。</h3>
-            <button onclick="switchMainView('demo')" class="bg-white text-slate-900 px-8 py-4 rounded-2xl font-bold hover:bg-slate-100 transition-all">
-                アプリデモを体験する
-            </button>
-            <p class="mt-12 text-slate-500 text-xs font-bold tracking-widest uppercase">Saitama Univ. Orchestra Alumni</p>
-        </footer>
+                <!-- システム -->
+                <section class="bg-white p-8 rounded-xl shadow-sm border border-slate-200">
+                    <h2 class="section-title">後援会運営システム【CO-next】について</h2>
+                    <ul class="concept-list">
+                        <li>会運営の実務負担を個人に集中させず、責任の分散と業務の効率化を実現するための専用システムを現在開発中です。（詳細は「アプリデモ」をご参照ください）</li>
+                        <li>名簿作成、会費の集金、寄付の管理、送金、連絡事項など、運営に関わる実務のほぼすべてをシステム上で完結できます。会員間のコミュニケーション要素を除き、システムの自動化による運営を目指します。</li>
+                    </ul>
+                    <div class="mt-4 p-4 bg-slate-50 text-sm text-slate-700">
+                        <strong>例）名簿作成︰</strong>会員の皆様がアプリ登録時に入力された情報をもとに、システムが自動的に代ごとの名簿を生成します。<br>
+                        <strong>例）資金管理︰</strong>Stripe決済を用いたキャッシュレス寄付と、1円単位でのリアルタイム財務ダッシュボード機能を提供します。
+                    </div>
+                </section>
+            </div>
+            
+            <div class="mt-16 text-center">
+                <button onclick="switchMainView('demo')" class="bg-slate-800 text-white px-8 py-3 rounded-lg font-bold hover:bg-slate-700 transition-colors flex items-center justify-center gap-2 mx-auto">
+                    <i data-lucide="smartphone" class="w-5 h-5"></i> CO-next アプリデモ画面を確認する
+                </button>
+            </div>
+        </div>
     </div>
 
     <!-- ==========================================
-         DEMO VIEW
+         DEMO VIEW (アプリ画面)
     ========================================== -->
-    <div id="view-demo" class="view-section py-20 bg-slate-50 min-h-screen">
+    <div id="view-demo" class="view-section py-12 bg-slate-100 min-h-[calc(100vh-4rem)]">
         
+        <div class="max-w-xl mx-auto text-center mb-8">
+            <h2 class="text-2xl font-bold text-slate-800 mb-2">CO-next 実機デモ</h2>
+            <p class="text-slate-600 text-sm">システム【CO-next】の実際の挙動を確認できます。</p>
+        </div>
+
         <div class="demo-frame">
             <!-- App Top Nav -->
-            <header class="bg-white/80 backdrop-blur-md px-6 py-4 border-b border-slate-100 flex items-center justify-between sticky top-0 z-20">
-                <div class="flex items-center gap-1.5">
+            <header class="bg-white px-5 py-4 border-b border-slate-100 flex items-center justify-between sticky top-0 z-20">
+                <div class="flex items-center gap-2">
                     <div class="w-6 h-6 bg-sky-600 rounded flex items-center justify-center">
                         <i data-lucide="music" class="w-3.5 h-3.5 text-white"></i>
                     </div>
-                    <span class="text-xl font-black tracking-tighter text-slate-900">CO-next</span>
+                    <span class="text-lg font-bold text-slate-900">CO-next</span>
                 </div>
                 <div class="flex items-center gap-2">
-                    <div class="bg-slate-100 px-2 py-0.5 rounded text-[10px] font-black text-slate-500 tracking-wider">59th</div>
-                    <div class="w-8 h-8 bg-slate-900 rounded-full flex items-center justify-center text-white font-bold text-xs">そ</div>
+                    <div class="bg-slate-100 px-2 py-0.5 rounded text-xs font-bold text-slate-600">59th</div>
+                    <div class="w-8 h-8 bg-slate-800 rounded-full flex items-center justify-center text-white font-bold text-sm">そ</div>
                 </div>
             </header>
 
             <!-- App Main -->
-            <main class="h-full overflow-y-auto pb-48 p-5">
+            <main class="h-full overflow-y-auto pb-48 p-4 bg-slate-50">
                 
                 <!-- Tab: Activity -->
-                <div id="app-tab-activity" class="demo-tab-content active space-y-5">
-                    <div class="bg-sky-50 p-4 rounded-2xl border border-sky-100 flex gap-3">
-                        <i data-lucide="bell" class="w-4 h-4 text-sky-600 mt-1 flex-shrink-0"></i>
-                        <p class="text-[11px] text-sky-900 font-medium leading-relaxed">
-                            <strong>活動報告（見守り設計）</strong><br>
-                            コメント機能はなく「いいね」のみ。後輩たちを温かく応援しましょう。
+                <div id="app-tab-activity" class="demo-tab-content active space-y-4">
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex gap-3 mb-2">
+                        <i data-lucide="info" class="w-5 h-5 text-sky-600 flex-shrink-0"></i>
+                        <p class="text-xs text-slate-700 leading-relaxed">
+                            <strong>活動報告</strong><br>
+                            過度な指導を防ぐためコメント機能はありません。後輩たちの活動報告には「いいね」のみで応援します。
                         </p>
                     </div>
 
-                    <div class="bg-white rounded-[2rem] border border-slate-100 shadow-sm overflow-hidden">
-                        <div class="p-5">
-                            <div class="flex items-center gap-3 mb-4">
-                                <div class="w-9 h-9 bg-slate-50 rounded-full flex items-center justify-center text-slate-400"><i data-lucide="user" class="w-5 h-5"></i></div>
+                    <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                        <div class="p-4">
+                            <div class="flex items-center gap-2 mb-3">
+                                <div class="w-8 h-8 bg-slate-100 rounded-full flex items-center justify-center text-slate-500 font-bold text-xs">現</div>
                                 <div>
-                                    <div class="text-sm font-black text-slate-800">現役会計 (61代)</div>
-                                    <div class="text-[10px] text-slate-400 font-bold uppercase">Today 14:00</div>
+                                    <div class="text-sm font-bold text-slate-800">現役会計 (61代)</div>
+                                    <div class="text-[10px] text-slate-500">今日 14:00</div>
                                 </div>
                             </div>
-                            <p class="text-sm leading-relaxed text-slate-600 mb-4 font-medium">
+                            <p class="text-sm leading-relaxed text-slate-700 mb-3">
                                 今月のOBOG会費から支援金をいただきました！ありがとうございます。演奏会のチラシデザイン費用として大切に使わせていただきます。
                             </p>
-                            <div class="w-full aspect-video bg-slate-50 rounded-2xl border border-slate-100 flex items-center justify-center">
-                                <i data-lucide="image" class="w-8 h-8 text-slate-200"></i>
+                            <div class="w-full h-32 bg-slate-100 rounded-lg flex items-center justify-center border border-slate-200">
+                                <i data-lucide="image" class="w-6 h-6 text-slate-400"></i>
                             </div>
                         </div>
-                        <div class="px-5 pb-5">
-                            <button onclick="handleLike(this)" class="flex items-center gap-2 px-5 py-2.5 bg-slate-50 rounded-full text-slate-500 text-xs font-black transition-all border border-slate-100">
-                                <i data-lucide="heart" class="w-4 h-4"></i> <span class="like-num">32</span> 応援
+                        <div class="px-4 pb-4 border-t border-slate-50 pt-3">
+                            <button onclick="handleLike(this)" class="flex items-center gap-1.5 px-3 py-1.5 bg-slate-50 rounded-md text-slate-600 text-xs font-bold border border-slate-200 hover:bg-slate-100 transition-colors">
+                                <i data-lucide="heart" class="w-3.5 h-3.5"></i> <span class="like-num">32</span> 応援
                             </button>
                         </div>
                     </div>
                 </div>
 
                 <!-- Tab: Support -->
-                <div id="app-tab-support" class="demo-tab-content space-y-6">
-                    <div class="bg-white rounded-[2rem] p-6 shadow-sm border border-slate-100 relative overflow-hidden">
-                        <div class="absolute top-0 right-0 bg-sky-600 text-white text-[10px] font-black px-4 py-1 rounded-bl-xl uppercase tracking-widest">Active</div>
-                        <h4 class="font-black text-lg text-slate-900 mb-2 pr-16 mt-2">打楽器・ティンパニ修理</h4>
-                        <p class="text-[11px] text-slate-400 font-medium leading-relaxed mb-6">
+                <div id="app-tab-support" class="demo-tab-content space-y-4">
+                    <h3 class="font-bold text-slate-800 px-1">スポット支援プロジェクト</h3>
+                    <div class="bg-white rounded-xl p-5 shadow-sm border border-slate-200">
+                        <div class="inline-flex bg-sky-100 text-sky-700 px-2 py-1 rounded text-[10px] font-bold mb-3">受付中</div>
+                        <h4 class="font-bold text-base text-slate-900 mb-2">打楽器・ティンパニ修理</h4>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
                             長年の使用で劣化したティンパニのヘッド交換とペダル調整が必要です。
                         </p>
-                        <div class="flex justify-between text-xs font-black mb-2">
-                            <span class="text-sky-600 tracking-tight">¥45,000</span>
-                            <span class="text-slate-300">GOAL ¥80,000</span>
+                        <div class="flex justify-between text-xs font-bold mb-1">
+                            <span class="text-sky-600">¥45,000</span>
+                            <span class="text-slate-400">目標 ¥80,000</span>
                         </div>
-                        <div class="h-1.5 bg-slate-50 rounded-full mb-6">
+                        <div class="h-2 bg-slate-100 rounded-full mb-4">
                             <div class="h-full bg-sky-600 rounded-full" style="width: 56%"></div>
                         </div>
-                        <button onclick="alert('Stripe決済後、OBOG会口座にプールされます。')" class="w-full bg-slate-900 text-white font-black py-4 rounded-2xl text-sm shadow-xl shadow-slate-200 active:scale-95 transition-transform">
+                        <button onclick="alert('Stripe決済画面へ遷移します。決済後はOBOG会口座にプールされます。')" class="w-full bg-slate-800 hover:bg-slate-700 text-white font-bold py-3 rounded-lg text-sm transition-colors">
                             支援する (¥500〜)
                         </button>
                     </div>
                 </div>
 
                 <!-- Tab: Finance -->
-                <div id="app-tab-finance" class="demo-tab-content space-y-6">
-                    <div class="bg-slate-900 text-white rounded-[2.5rem] p-8 shadow-2xl">
-                        <div class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2">OBOG会 口座残高</div>
-                        <div class="text-4xl font-black mb-8 tracking-tighter italic">¥142,508</div>
-                        <div class="grid grid-cols-2 gap-4">
-                            <div class="bg-white/5 p-4 rounded-2xl border border-white/5">
-                                <div class="text-[10px] text-sky-400 font-black uppercase mb-1">今月の寄付額</div>
-                                <div class="text-lg font-black">¥42,500</div>
+                <div id="app-tab-finance" class="demo-tab-content space-y-5">
+                    <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
+                        <div class="text-xs font-bold text-slate-500 mb-1">OBOG会 口座残高</div>
+                        <div class="text-3xl font-bold text-slate-800 mb-4">¥142,508</div>
+                        
+                        <div class="grid grid-cols-2 gap-3">
+                            <div class="bg-sky-50 p-3 rounded-lg border border-sky-100">
+                                <div class="text-[10px] text-sky-700 font-bold mb-1">今月の会費・寄付</div>
+                                <div class="text-sm font-bold text-sky-900">¥42,500</div>
                             </div>
-                            <div class="bg-white/5 p-4 rounded-2xl border border-white/5">
-                                <div class="text-[10px] text-amber-400 font-black uppercase mb-1">次期 自動送金予定</div>
-                                <div class="text-lg font-black">¥38,000</div>
-                                <div class="text-[8px] text-slate-400 mt-1">※運営費差引後</div>
+                            <div class="bg-slate-50 p-3 rounded-lg border border-slate-200">
+                                <div class="text-[10px] text-slate-600 font-bold mb-1">次期 自動送金予定</div>
+                                <div class="text-sm font-bold text-slate-800">¥38,000</div>
+                                <div class="text-[9px] text-slate-500 mt-0.5">※運営費差引後</div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="space-y-4">
-                        <div class="flex items-center justify-between px-2">
-                            <h4 class="font-black text-sm text-slate-900 uppercase tracking-wider">Audit Log</h4>
-                            <span class="text-[10px] font-bold text-slate-400">1円単位で公開</span>
-                        </div>
-                        <div class="bg-white rounded-[2rem] border border-slate-100 overflow-hidden shadow-sm">
-                            <div class="p-4 border-b border-slate-50 flex justify-between items-center">
+                    <div>
+                        <h4 class="font-bold text-sm text-slate-800 px-1 mb-2">財務履歴（1円単位で公開）</h4>
+                        <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                            <div class="p-3 border-b border-slate-100 flex justify-between items-center">
                                 <div>
-                                    <div class="text-xs font-black">月末 自動送金（会費分）</div>
-                                    <div class="text-[10px] text-slate-400 font-bold uppercase tracking-tighter">Automatic Transfer</div>
+                                    <div class="text-xs font-bold text-slate-800">月末 自動送金（会費分）</div>
+                                    <div class="text-[10px] text-slate-500">運営費差引後</div>
                                 </div>
-                                <div class="text-sm font-black text-slate-400">-¥38,000</div>
+                                <div class="text-sm font-bold text-slate-600">-¥38,000</div>
                             </div>
-                            <div class="p-4 border-b border-slate-50 flex justify-between items-center">
+                            <div class="p-3 border-b border-slate-100 flex justify-between items-center">
                                 <div>
-                                    <div class="text-xs font-black">決済手数料 (Stripe)</div>
-                                    <div class="text-[10px] text-slate-400 font-bold uppercase tracking-tighter">Tax / Fees</div>
+                                    <div class="text-xs font-bold text-slate-800">決済手数料 (Stripe)</div>
+                                    <div class="text-[10px] text-slate-500">自動引落</div>
                                 </div>
-                                <div class="text-sm font-black text-slate-400">-¥1,402</div>
+                                <div class="text-sm font-bold text-slate-600">-¥1,402</div>
                             </div>
-                            <div class="p-4 flex justify-between items-center bg-amber-50/50 border-b border-slate-50">
+                            <div class="p-3 flex justify-between items-center bg-slate-50 border-b border-slate-100">
                                 <div>
-                                    <div class="text-xs font-black">スポット送金（弓購入）</div>
-                                    <div class="text-[10px] text-amber-600 font-bold uppercase tracking-tighter">Approved Transfer</div>
+                                    <div class="text-xs font-bold text-slate-800">スポット送金（弓購入）</div>
+                                    <div class="text-[10px] text-slate-500">アンバサダー承認済</div>
                                 </div>
-                                <div class="text-sm font-black text-amber-600">-¥50,000</div>
+                                <div class="text-sm font-bold text-slate-800">-¥50,000</div>
                             </div>
-                            <div class="p-4 flex justify-between items-center bg-sky-50/30">
+                            <div class="p-3 flex justify-between items-center">
                                 <div>
-                                    <div class="text-xs font-black">会費入金 (第55代 O.T様)</div>
-                                    <div class="text-[10px] text-sky-600 font-bold uppercase tracking-tighter">Contribution</div>
+                                    <div class="text-xs font-bold text-slate-800">会費入金 (第55代 O.T様)</div>
+                                    <div class="text-[10px] text-slate-500">Stripe決済</div>
                                 </div>
-                                <div class="text-sm font-black text-sky-600">+¥1,000</div>
+                                <div class="text-sm font-bold text-sky-600">+¥1,000</div>
                             </div>
                         </div>
                     </div>
@@ -316,31 +322,34 @@
 
                 <!-- Tab: Admin -->
                 <div id="app-tab-admin" class="demo-tab-content space-y-4">
-                    <div class="bg-amber-50 p-4 rounded-2xl border border-amber-100 flex gap-3 mb-4">
-                        <i data-lucide="shield-check" class="w-4 h-4 text-amber-600 mt-1 flex-shrink-0"></i>
-                        <p class="text-[11px] text-amber-900 font-medium leading-relaxed">
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex gap-3 mb-2">
+                        <i data-lucide="check-square" class="w-5 h-5 text-sky-600 flex-shrink-0"></i>
+                        <p class="text-xs text-slate-700 leading-relaxed">
                             <strong>アンバサダー承認 (スポット支援)</strong><br>
                             現役からの請求書等を確認し、承認してください。会費は月末に自動送金されるため承認不要です。
                         </p>
                     </div>
 
-                    <div class="bg-white rounded-3xl p-6 border border-slate-100 shadow-sm">
-                        <div class="inline-block bg-sky-100 text-sky-700 px-3 py-1 rounded-lg text-[10px] font-black mb-4">送金リクエスト承認</div>
-                        <h3 class="font-black text-sm mb-4 leading-relaxed">【使途指定】打楽器修理（ティンパニ）の実施と送金</h3>
-                        <div class="bg-slate-50 rounded-2xl p-4 mb-6 space-y-2">
-                            <div class="flex justify-between text-[11px] font-medium"><span class="text-slate-400">送金リクエスト額</span><span class="text-slate-900 font-black tracking-tight">¥80,000</span></div>
-                            <div class="flex justify-between text-[11px] font-medium"><span class="text-slate-400">現役からの証憑</span><span class="text-sky-600 font-black underline cursor-pointer">見積書・請求書を確認</span></div>
+                    <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm">
+                        <div class="inline-block bg-slate-100 text-slate-600 px-2 py-1 rounded text-[10px] font-bold mb-3">送金リクエスト</div>
+                        <h3 class="font-bold text-sm text-slate-900 mb-3">【使途指定】打楽器修理（ティンパニ）</h3>
+                        
+                        <div class="bg-slate-50 rounded-lg p-3 mb-4 space-y-2 border border-slate-100">
+                            <div class="flex justify-between text-xs"><span class="text-slate-500">送金リクエスト額</span><span class="text-slate-900 font-bold">¥80,000</span></div>
+                            <div class="flex justify-between text-xs"><span class="text-slate-500">現役からの証憑</span><span class="text-sky-600 font-bold underline cursor-pointer">見積書・請求書を確認</span></div>
                         </div>
-                        <div class="flex justify-between text-[10px] font-black mb-2">
-                            <span class="text-sky-600 uppercase tracking-widest">Approved 14 / 30</span>
-                            <span class="text-slate-300">過半数で実行</span>
+
+                        <div class="flex justify-between text-xs font-bold mb-1">
+                            <span class="text-slate-700">承認状況: 14 / 30 代</span>
+                            <span class="text-slate-500">過半数で実行</span>
                         </div>
-                        <div class="h-1 bg-slate-100 rounded-full mb-8">
-                            <div class="h-full bg-sky-600 rounded-full" style="width: 46%"></div>
+                        <div class="h-2 bg-slate-100 rounded-full mb-5">
+                            <div class="h-full bg-sky-500 rounded-full" style="width: 46%"></div>
                         </div>
+
                         <div class="flex gap-2">
-                            <button onclick="alert('否認しました')" class="flex-1 bg-slate-50 text-slate-400 py-3.5 rounded-xl text-xs font-black hover:bg-slate-100 transition-colors">否認</button>
-                            <button onclick="alert('承認しました！過半数達成時に現役口座へ送金実行されます')" class="flex-[2] bg-slate-900 text-white py-3.5 rounded-xl text-xs font-black active:scale-95 transition-transform">承認して送金実行</button>
+                            <button onclick="alert('否認しました')" class="flex-1 bg-white border border-slate-300 text-slate-600 py-2.5 rounded-lg text-xs font-bold hover:bg-slate-50 transition-colors">否認</button>
+                            <button onclick="alert('承認しました。過半数達成時に現役口座へ送金実行されます。')" class="flex-[2] bg-sky-600 hover:bg-sky-700 text-white py-2.5 rounded-lg text-xs font-bold transition-colors">承認する</button>
                         </div>
                     </div>
                 </div>
@@ -348,20 +357,20 @@
             </main>
 
             <!-- App Nav -->
-            <nav class="absolute bottom-0 w-full bg-white/90 backdrop-blur-xl border-t border-slate-100 flex justify-around p-4 pb-10 z-30">
-                <button onclick="switchAppTab('activity')" id="app-nav-activity" class="app-nav-item text-sky-600 flex flex-col items-center gap-1">
-                    <i data-lucide="layout-grid" class="w-5 h-5"></i><span class="text-[9px] font-black uppercase tracking-tighter">報告</span>
+            <nav class="absolute bottom-0 w-full bg-white border-t border-slate-200 flex justify-around p-2 pb-6 z-30">
+                <button onclick="switchAppTab('activity')" id="app-nav-activity" class="app-nav-item text-sky-600 flex flex-col items-center gap-1 p-2 min-w-[4rem]">
+                    <i data-lucide="layout-grid" class="w-5 h-5"></i><span class="text-[10px] font-bold">報告</span>
                 </button>
-                <button onclick="switchAppTab('support')" id="app-nav-support" class="app-nav-item text-slate-300 flex flex-col items-center gap-1">
-                    <i data-lucide="heart" class="w-5 h-5"></i><span class="text-[9px] font-black uppercase tracking-tighter">支援</span>
+                <button onclick="switchAppTab('support')" id="app-nav-support" class="app-nav-item text-slate-400 flex flex-col items-center gap-1 p-2 min-w-[4rem]">
+                    <i data-lucide="heart" class="w-5 h-5"></i><span class="text-[10px] font-bold">支援</span>
                 </button>
-                <button onclick="switchAppTab('finance')" id="app-nav-finance" class="app-nav-item text-slate-300 flex flex-col items-center gap-1">
-                    <i data-lucide="bar-chart-3" class="w-5 h-5"></i><span class="text-[9px] font-black uppercase tracking-tighter">財務</span>
+                <button onclick="switchAppTab('finance')" id="app-nav-finance" class="app-nav-item text-slate-400 flex flex-col items-center gap-1 p-2 min-w-[4rem]">
+                    <i data-lucide="bar-chart-3" class="w-5 h-5"></i><span class="text-[10px] font-bold">財務</span>
                 </button>
-                <button onclick="switchAppTab('admin')" id="app-nav-admin" class="app-nav-item text-slate-300 flex flex-col items-center gap-1 relative">
+                <button onclick="switchAppTab('admin')" id="app-nav-admin" class="app-nav-item text-slate-400 flex flex-col items-center gap-1 p-2 min-w-[4rem] relative">
                     <i data-lucide="check-square" class="w-5 h-5"></i>
-                    <span class="absolute -top-0.5 -right-0.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white"></span>
-                    <span class="text-[9px] font-black uppercase tracking-tighter">承認</span>
+                    <span class="absolute top-1 right-3 w-2 h-2 bg-red-500 rounded-full"></span>
+                    <span class="text-[10px] font-bold">承認</span>
                 </button>
             </nav>
         </div>
@@ -377,12 +386,24 @@
             document.querySelectorAll('.view-section').forEach(v => v.classList.remove('active'));
             document.getElementById('view-' + view).classList.add('active');
             
-            document.getElementById('tab-lp').classList.toggle('nav-active', view === 'lp');
-            document.getElementById('tab-lp').classList.toggle('text-slate-400', view === 'demo');
-            document.getElementById('tab-demo').classList.toggle('nav-active', view === 'demo');
-            document.getElementById('tab-demo').classList.toggle('text-slate-400', view === 'lp');
+            const tabLp = document.getElementById('tab-lp');
+            const tabDemo = document.getElementById('tab-demo');
             
-            window.scrollTo({top:0, behavior:'smooth'});
+            if(view === 'lp') {
+                tabLp.classList.add('nav-active');
+                tabLp.classList.remove('text-slate-500');
+                tabDemo.classList.remove('nav-active');
+                tabDemo.classList.add('text-slate-500');
+                tabDemo.classList.remove('text-slate-800');
+            } else {
+                tabDemo.classList.add('nav-active');
+                tabDemo.classList.add('text-slate-800');
+                tabDemo.classList.remove('text-slate-500');
+                tabLp.classList.remove('nav-active');
+                tabLp.classList.add('text-slate-500');
+            }
+            
+            window.scrollTo(0, 0);
         }
 
         // App Tab Switching
@@ -392,23 +413,27 @@
             
             document.querySelectorAll('.app-nav-item').forEach(i => {
                 i.classList.remove('text-sky-600');
-                i.classList.add('text-slate-300');
+                i.classList.add('text-slate-400');
             });
             document.getElementById('app-nav-' + tab).classList.add('text-sky-600');
-            document.getElementById('app-nav-' + tab).classList.remove('text-slate-300');
+            document.getElementById('app-nav-' + tab).classList.remove('text-slate-400');
         }
 
         // Like Interaction
         function handleLike(btn) {
             const countEl = btn.querySelector('.like-num');
+            const icon = btn.querySelector('i');
             let count = parseInt(countEl.innerText);
+            
             if(btn.classList.contains('text-pink-600')) {
-                btn.classList.remove('text-pink-600', 'bg-pink-50', 'border-pink-100');
-                btn.classList.add('text-slate-500', 'bg-slate-50', 'border-slate-100');
+                btn.classList.remove('text-pink-600', 'bg-pink-50', 'border-pink-200');
+                btn.classList.add('text-slate-600', 'bg-slate-50', 'border-slate-200');
+                icon.style.fill = 'none';
                 countEl.innerText = count - 1;
             } else {
-                btn.classList.add('text-pink-600', 'bg-pink-50', 'border-pink-100');
-                btn.classList.remove('text-slate-500', 'bg-slate-50', 'border-slate-100');
+                btn.classList.add('text-pink-600', 'bg-pink-50', 'border-pink-200');
+                btn.classList.remove('text-slate-600', 'bg-slate-50', 'border-slate-200');
+                icon.style.fill = 'currentColor';
                 countEl.innerText = count + 1;
             }
         }
