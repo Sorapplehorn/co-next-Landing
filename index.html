@@ -4,190 +4,258 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>埼玉大学管弦楽団 OBOG会 設立構想</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg-color: #f8fafc;
-            --text-color: #334155;
-            --card-bg: #ffffff;
-            --primary-color: #0284c7;
-            --border-color: #e2e8f0;
-            --note-bg: #f1f5f9;
-        }
-
-        /* ダークモード対応 */
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --bg-color: #0f172a;
-                --text-color: #e2e8f0;
-                --card-bg: #1e293b;
-                --primary-color: #38bdf8;
-                --border-color: #334155;
-                --note-bg: #0f172a;
-            }
-        }
-
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "BIZ UDPGothic", Meiryo, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.8;
-            margin: 0;
-            padding: 0;
-            word-wrap: break-word;
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: #f8fafc;
+            color: #334155;
         }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 40px 20px;
+        /* 強制ライトモード（ダークモード非対応） */
+        :root {
+            color-scheme: light;
         }
-
-        header {
-            text-align: center;
-            margin-bottom: 50px;
+        .hero-pattern {
+            background-color: #f0f9ff;
+            background-image: radial-gradient(#bae6fd 1px, transparent 1px);
+            background-size: 20px 20px;
         }
-
-        h1 {
-            font-size: 1.75rem;
-            color: var(--primary-color);
-            border-bottom: 2px solid var(--primary-color);
-            display: inline-block;
-            padding-bottom: 10px;
-            margin-bottom: 0;
-        }
-
-        section {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-        }
-
-        h2 {
-            font-size: 1.25rem;
-            color: var(--text-color);
-            margin-top: 0;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-        }
-
-        h2::before {
-            content: "◯";
-            color: var(--primary-color);
-            margin-right: 8px;
-            font-size: 1.1rem;
-        }
-
-        ul {
-            list-style-type: none;
-            padding-left: 0;
-            margin: 0;
-        }
-
-        li {
-            position: relative;
-            padding-left: 1.5em;
-            margin-bottom: 12px;
-        }
-
-        li::before {
-            content: "・";
-            position: absolute;
-            left: 0;
-            color: var(--text-color);
-        }
-
-        .no-bullet {
-            padding-left: 0;
-        }
-        .no-bullet::before {
-            content: none;
-        }
-
-        .note {
-            background-color: var(--note-bg);
-            border-left: 4px solid var(--primary-color);
-            padding: 15px 20px;
-            margin-top: 20px;
-            border-radius: 0 8px 8px 0;
-            font-size: 0.95em;
-        }
-
-        strong {
-            font-weight: 600;
-        }
-
-        .example {
-            margin-top: 10px;
-            color: var(--text-color);
-            opacity: 0.9;
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background-color: #0ea5e9;
+            margin-top: 12px;
+            border-radius: 2px;
         }
     </style>
 </head>
-<body>
-    <div class="container">
-        <header>
-            <h1>埼玉大学管弦楽団 OBOG会 設立構想</h1>
-        </header>
+<body class="antialiased">
 
-        <section>
-            <h2>目的</h2>
-            <ul>
-                <li>全世代が横断的に交流できる、新たなOBOGの繋がりを創出すること。</li>
-                <li>現役の団員たちが、安心して音楽活動に打ち込める支援の枠組みを確立すること。</li>
-            </ul>
-        </section>
+    <!-- Hero Section -->
+    <header class="hero-pattern relative overflow-hidden py-20 lg:py-32 border-b border-sky-100">
+        <div class="max-w-5xl mx-auto px-6 relative z-10 text-center">
+            <span class="text-sky-600 font-bold tracking-wider text-sm mb-4 block">埼玉大学管弦楽団</span>
+            <h1 class="text-4xl md:text-5xl font-bold text-slate-900 leading-tight mb-6">
+                OBOG会 設立構想
+            </h1>
+            <p class="text-xl md:text-2xl text-slate-600 mb-8 max-w-3xl mx-auto leading-relaxed">
+                「持続可能な支援」と「全世代の繋がり」を、<br class="hidden md:inline">テクノロジーの力で実現する新しい後援プラットフォーム。
+            </p>
+            <p class="text-slate-500 font-medium">設立準備委員会 代表：奏良</p>
+        </div>
+    </header>
 
-        <section>
-            <h2>組織（アンバサダー制の導入）</h2>
-            <ul>
-                <li>従来の同窓会組織では、会長や一部の役員に実務的な負担が集中しやすいという課題がありました。</li>
-                <li>これを解消するため、本会では特定の個人に負担が偏る「役員集中型」の運営は行いません。代わりに、各代から1名の「アンバサダー（代議員）」を選出し、アンバサダーによる合議体で会の重要な意思決定を行う「アンバサダー制」を採用します。</li>
-                <li>各種届出等に必要な「会の代表者（会長）」については、卒団直後（大学卒業後の新社会人、または大学院1年生）のメンバー1名に、1年交代で名義を担っていただきます。</li>
-            </ul>
-            <div class="note">
-                ※議事整理、進行、会計など、従来の組織で役員が担っていた実務的な要素は、新たに開発する後援会運営システム【CO-next】に集約し、システムの力で運営をサポートします。
+    <!-- 1. 目的と背景 -->
+    <section class="py-16 bg-white">
+        <div class="max-w-4xl mx-auto px-6">
+            <h2 class="text-3xl font-bold text-slate-900 mb-8 section-title">目的と設立の背景</h2>
+            
+            <div class="mb-10">
+                <h3 class="text-xl font-bold text-slate-800 mb-4 flex items-center">
+                    <svg class="w-6 h-6 text-sky-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    解決したい課題（なぜ今やるのか）
+                </h3>
+                <p class="text-slate-600 leading-loose mb-4">
+                    現在、私たちの母体である現役楽団は構造的な危機に直面しています。国立大学を取り巻く財政状況の厳格化や、近年の物価高（楽器メンテナンス費用、ホール利用料等の急騰）により、学生一人ひとりの金銭的負担は限界に達しつつあります。<br>
+                    しかし、従来の同窓会組織では「卒団と同時に支援の窓口が途絶える」「役員に実務的な負担が集中しすぎる」という課題があり、持続的な支援インフラとは言えませんでした。
+                </p>
             </div>
-        </section>
 
-        <section>
-            <h2>活動</h2>
-            <ul>
-                <li>本会は、「交流」「支援」「広報」の3つを活動の柱とします。</li>
-                <li class="no-bullet"><strong>交流︰</strong><br>OBOG同士、および現役団とOBOGの交流を促進します。現在、代ごとに分散して活動されている既存のOBOGオケの活動も尊重しつつ、オンライン・オフラインを問わず、全世代が交われる交流の場を提供します。</li>
-                <li class="no-bullet"><strong>支援︰</strong><br>現役団、および現存するOBOGオケへの支援を行います。昨今の物価高騰によりオーケストラの運営コストは上昇しており、学生主体の現役団は経済的に厳しい状況にあります。そのため、本会の会費は運営資金を除き、原則としてすべて現役団への寄付金とします。さらに、打楽器の修理等、大規模な出費が見込まれる際には、寄付型クラウドファンディングのような仕組みを用い、「用途を指定したスポット支援」が可能なプロジェクトを都度立ち上げます。</li>
-                <li class="no-bullet"><strong>広報︰</strong><br>現役団やOBOGオケの演奏会情報などを広く発信します。全世代のOBOGネットワークを活用し、より多くの方々へアプローチすることを目指します。</li>
-            </ul>
-        </section>
-
-        <section>
-            <h2>運営と会員制度</h2>
-            <ul>
-                <li class="no-bullet"><strong>・正会員︰</strong>入会金（1,000円程度）および年会費（1,000円/年 程度）をお支払いいただき、継続的にご支援いただける方。</li>
-                <li class="no-bullet"><strong>・準会員︰</strong>埼玉大学管弦楽団を卒団（退団された方も任意で可）されたすべてのメンバー。会費の負担はなく、コミュニティへの参加が可能です。</li>
-            </ul>
-            <div class="note">
-                ※正会員・準会員を問わず、すべての会員が前述の「スポット支援（用途指定寄付）」に参加可能です。
+            <div class="bg-sky-50 rounded-2xl p-8 border border-sky-100">
+                <h3 class="text-xl font-bold text-slate-800 mb-4">本会の目的</h3>
+                <ul class="space-y-4 text-slate-700">
+                    <li class="flex items-start">
+                        <span class="text-sky-500 mr-3 mt-1">●</span>
+                        <span>全世代が横断的に交流できる、新たなOBOGの繋がりを創出すること。</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-sky-500 mr-3 mt-1">●</span>
+                        <span>現役の団員たちが、安心して音楽活動に打ち込める支援の枠組みを確立すること。</span>
+                    </li>
+                </ul>
             </div>
-            <ul>
-                <li class="no-bullet" style="margin-top: 12px;"><strong>・現役団員の皆様へのお願い︰</strong><br>どのような支援が必要とされているかを明確にし、OBOG会員が支援の意義を感じやすくなるよう、システム【CO-next】を通じて定期的な「活動報告」の実施をお願いいたします。</li>
-            </ul>
-        </section>
+        </div>
+    </section>
 
-        <section>
-            <h2>後援会運営システム【CO-next】について</h2>
-            <ul>
-                <li>会運営の実務負担を個人に集中させず、責任の分散と業務の効率化を実現するための専用システムを現在開発中です（詳細はデモページをご参照ください）。</li>
-                <li>名簿作成、会費の集金、寄付の管理、連絡事項など、運営に関わる実務のほぼすべてをシステム上で完結できます。会員間のコミュニケーション要素を除き、システムの自動化による運営を目指します。</li>
-            </ul>
-            <div class="example">
-                例）名簿作成︰会員の皆様がアプリ登録時に入力された情報をもとに、システムが自動的に代ごとの名簿を生成します。
+    <!-- 2. 組織体制 -->
+    <section class="py-16 bg-slate-50">
+        <div class="max-w-4xl mx-auto px-6">
+            <h2 class="text-3xl font-bold text-slate-900 mb-8 section-title">組織（アンバサダー制の導入）</h2>
+            
+            <p class="text-slate-600 leading-loose mb-8">
+                特定の個人に負担が偏る「役員集中型」の運営は行いません。テクノロジーを活用し、負担の最小化と自律分散型のガバナンスを実現します。
+            </p>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                    <h3 class="font-bold text-lg text-slate-800 mb-3 text-sky-600">アンバサダー（代議員）による合議</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        各代から1名のアンバサダーを選出します。主な役割は「同期への周知」と、システム上での「承認ボタン押下」のみ。この合議体が会の重要な意思決定を行います。
+                    </p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                    <h3 class="font-bold text-lg text-slate-800 mb-3 text-sky-600">名義上の会長職</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        各種届出等に必要な「会の代表者（会長）」については、卒団直後（大学卒業後の新社会人、または大学院1年生）のメンバー1名に、1年交代で名義を担っていただきます。
+                    </p>
+                </div>
             </div>
-        </section>
-    </div>
+
+            <div class="mt-8 bg-slate-800 text-white p-6 rounded-xl">
+                <p class="text-sm leading-relaxed">
+                    <span class="font-bold text-sky-400">※システムへの実務集約</span><br>
+                    議事整理、進行、会計など、従来の組織で役員が担っていた実務的な要素は、新たに開発する後援会運営システム【CO-next】に集約し、システムの力で運営をサポートします。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. 活動内容 -->
+    <section class="py-16 bg-white">
+        <div class="max-w-4xl mx-auto px-6">
+            <h2 class="text-3xl font-bold text-slate-900 mb-8 section-title">活動の3本柱</h2>
+            
+            <div class="space-y-6">
+                <!-- 交流 -->
+                <div class="flex flex-col md:flex-row gap-6 p-6 border border-slate-200 rounded-2xl">
+                    <div class="md:w-1/4">
+                        <h3 class="text-xl font-bold text-slate-800">交流</h3>
+                    </div>
+                    <div class="md:w-3/4">
+                        <p class="text-slate-600 leading-relaxed">
+                            OBOG同士、および現役団とOBOGの交流を促進します。現在、代ごとに分散して活動されている既存のOBOGオケの活動も尊重しつつ、オンライン・オフラインを問わず、全世代が交われる交流の場を提供します。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 支援 -->
+                <div class="flex flex-col md:flex-row gap-6 p-6 border border-sky-200 bg-sky-50 rounded-2xl">
+                    <div class="md:w-1/4">
+                        <h3 class="text-xl font-bold text-sky-700">支援</h3>
+                    </div>
+                    <div class="md:w-3/4">
+                        <p class="text-slate-700 leading-relaxed mb-3">
+                            現役団、および現存するOBOGオケへの支援を行います。本会の会費は運営資金を除き、<strong>原則としてすべて現役団への寄付金</strong>とします。
+                        </p>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            さらに、打楽器の修理等、大規模な出費が見込まれる際には、寄付型クラウドファンディングのような仕組みを用い、「用途を指定したスポット支援」が可能なプロジェクトを都度立ち上げます。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 広報 -->
+                <div class="flex flex-col md:flex-row gap-6 p-6 border border-slate-200 rounded-2xl">
+                    <div class="md:w-1/4">
+                        <h3 class="text-xl font-bold text-slate-800">広報</h3>
+                    </div>
+                    <div class="md:w-3/4">
+                        <p class="text-slate-600 leading-relaxed">
+                            現役団やOBOGオケの演奏会情報などを広く発信します。全世代のOBOGネットワークを活用し、より多くの方々へアプローチすることを目指します。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. 会員制度 -->
+    <section class="py-16 bg-slate-50 border-y border-slate-200">
+        <div class="max-w-4xl mx-auto px-6">
+            <h2 class="text-3xl font-bold text-slate-900 mb-8 section-title">運営と会員制度</h2>
+            
+            <div class="grid md:grid-cols-2 gap-6 mb-8">
+                <div class="bg-white p-8 rounded-2xl shadow-sm border-t-4 border-sky-500">
+                    <h3 class="text-xl font-bold text-slate-800 mb-2">正会員</h3>
+                    <p class="text-sm text-slate-500 mb-4">運営支援者</p>
+                    <p class="text-slate-600 leading-relaxed">
+                        入会金（1,000円程度）および年会費（1,000円/年 程度）をお支払いいただき、継続的にご支援いただける方。後援会の運営方針や、大型の資金執行に対する投票権（アンバサダー経由）を持ちます。
+                    </p>
+                </div>
+
+                <div class="bg-white p-8 rounded-2xl shadow-sm border-t-4 border-slate-400">
+                    <h3 class="text-xl font-bold text-slate-800 mb-2">準会員</h3>
+                    <p class="text-sm text-slate-500 mb-4">コミュニティ参加者</p>
+                    <p class="text-slate-600 leading-relaxed">
+                        埼玉大学管弦楽団を卒団（退団された方も任意で可）されたすべてのメンバー。会費の負担はなく、無料のアプリ登録のみでコミュニティへの参加や活動報告の閲覧が可能です。
+                    </p>
+                </div>
+            </div>
+
+            <p class="text-center text-slate-600 text-sm mb-8">
+                ※正会員・準会員を問わず、すべての会員が都度寄付を行う「スポット支援（用途指定寄付）」に参加可能です。
+            </p>
+
+            <div class="bg-amber-50 border border-amber-200 p-6 rounded-xl">
+                <h4 class="font-bold text-amber-800 mb-2">現役団員の皆様へのお願い</h4>
+                <p class="text-amber-700 text-sm leading-relaxed">
+                    どのような支援が必要とされているかを明確にし、OBOG会員が支援の意義を感じやすくなるよう、システム【CO-next】を通じて定期的な「活動報告」の実施をお願いいたします。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. システム CO-next -->
+    <section class="py-20 bg-white">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-slate-900 mb-4">後援会運営システム<br class="md:hidden"><span class="text-sky-600 text-4xl ml-2 font-black">CO-next</span></h2>
+                <p class="text-slate-600">会運営の実務負担を個人に集中させず、責任の分散と業務の効率化を実現するための専用Webアプリケーション。</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Feature 1 -->
+                <div class="relative pl-12">
+                    <div class="absolute left-0 top-0 bg-sky-100 text-sky-600 w-8 h-8 rounded-full flex items-center justify-center font-bold">1</div>
+                    <h4 class="text-lg font-bold text-slate-800 mb-2">支援（クラウドファンディング型）</h4>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        現役生が起案したプロジェクト（例：「ティンパニ修理」）に対し、Stripe決済を用いて1口500円から寄付が可能。寄付者のクレジットカード情報はシステムに保持せず安全に処理されます。
+                    </p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="relative pl-12">
+                    <div class="absolute left-0 top-0 bg-sky-100 text-sky-600 w-8 h-8 rounded-full flex items-center justify-center font-bold">2</div>
+                    <h4 class="text-lg font-bold text-slate-800 mb-2">リアルタイム財務ダッシュボード</h4>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        「今いくら集まり、何にいくら使われたか」を全会員が1円単位で確認可能。決済手数料や現役への送金済額をグラフで可視化し、圧倒的な透明性を担保します。
+                    </p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="relative pl-12">
+                    <div class="absolute left-0 top-0 bg-sky-100 text-sky-600 w-8 h-8 rounded-full flex items-center justify-center font-bold">3</div>
+                    <h4 class="text-lg font-bold text-slate-800 mb-2">SNS型活動タイムライン</h4>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        現役生からの活動報告をタイムラインで共有。過度な指導や炎上を防ぐためコメント機能は設けず、OBOGは「いいね（応援する）」リアクションのみで温かく見守ります。
+                    </p>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="relative pl-12">
+                    <div class="absolute left-0 top-0 bg-sky-100 text-sky-600 w-8 h-8 rounded-full flex items-center justify-center font-bold">4</div>
+                    <h4 class="text-lg font-bold text-slate-800 mb-2">DAO的ガバナンスと自動名簿</h4>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        一定額以上の資金引き出しにはアンバサダーの過半数の承認投票が必要な仕組み。また、招待URLからの登録時に各自が代を選択することで、代ごとの名簿が自動生成されます。
+                    </p>
+                </div>
+            </div>
+            
+            <div class="mt-12 text-center">
+                <p class="text-slate-500 font-medium mb-4">※システムの詳細はデモページをご参照ください。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 py-8 text-center text-slate-400">
+        <div class="max-w-4xl mx-auto px-6">
+            <p class="text-sm">埼玉大学管弦楽団 後援組織設立準備委員会</p>
+        </div>
+    </footer>
+
 </body>
 </html>
 
