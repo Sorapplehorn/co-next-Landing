@@ -3,207 +3,193 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OBOG会設立構想 プレゼンテーション</title>
+    <title>埼玉大学管弦楽団 OBOG会 設立構想</title>
     <style>
         :root {
-            --primary-color: #2c3e50;
-            --accent-color: #3498db;
-            --bg-color: #1a1a1a; /* そらさん好みのダークモード仕様 */
-            --text-color: #f5f5f5;
-            --slide-bg: #2d2d2d;
+            --bg-color: #f8fafc;
+            --text-color: #334155;
+            --card-bg: #ffffff;
+            --primary-color: #0284c7;
+            --border-color: #e2e8f0;
+            --note-bg: #f1f5f9;
         }
 
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+        /* ダークモード対応 */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #0f172a;
+                --text-color: #e2e8f0;
+                --card-bg: #1e293b;
+                --primary-color: #38bdf8;
+                --border-color: #334155;
+                --note-bg: #0f172a;
+            }
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "BIZ UDPGothic", Meiryo, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
-            overflow: hidden;
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+            word-wrap: break-word;
         }
 
-        .slide-container {
-            width: 100vw;
-            height: 100vh;
-            display: flex;
-            transition: transform 0.5s ease-in-out;
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
         }
 
-        .slide {
-            min-width: 100vw;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 40px;
-            box-sizing: border-box;
+        header {
             text-align: center;
+            margin-bottom: 50px;
         }
 
-        .slide-content {
-            background: var(--slide-bg);
-            padding: 3rem;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            max-width: 900px;
-            width: 80%;
-            min-height: 60%;
+        h1 {
+            font-size: 1.75rem;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+            display: inline-block;
+            padding-bottom: 10px;
+            margin-bottom: 0;
+        }
+
+        section {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        h2 {
+            font-size: 1.25rem;
+            color: var(--text-color);
+            margin-top: 0;
+            margin-bottom: 20px;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
+            align-items: center;
         }
 
-        h1 { font-size: 3rem; color: var(--accent-color); margin-bottom: 1rem; }
-        h2 { font-size: 2.2rem; border-bottom: 2px solid var(--accent-color); padding-bottom: 10px; margin-bottom: 2rem; }
-        p { font-size: 1.2rem; line-height: 1.8; text-align: left; }
-        ul { text-align: left; font-size: 1.2rem; line-height: 2; }
-        
-        .controls {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            display: flex;
-            gap: 15px;
-            z-index: 100;
+        h2::before {
+            content: "◯";
+            color: var(--primary-color);
+            margin-right: 8px;
+            font-size: 1.1rem;
         }
 
-        button {
-            background: var(--accent-color);
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: opacity 0.3s;
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+            margin: 0;
         }
 
-        button:hover { opacity: 0.8; }
-        button:disabled { background: #555; cursor: not-allowed; }
+        li {
+            position: relative;
+            padding-left: 1.5em;
+            margin-bottom: 12px;
+        }
 
-        .progress {
-            position: fixed;
-            bottom: 0;
+        li::before {
+            content: "・";
+            position: absolute;
             left: 0;
-            height: 5px;
-            background: var(--accent-color);
-            transition: width 0.3s;
+            color: var(--text-color);
+        }
+
+        /* 例外的に「・」がないリスト項目のスタイル */
+        .no-bullet {
+            padding-left: 0;
+        }
+        .no-bullet::before {
+            content: none;
+        }
+
+        .note {
+            background-color: var(--note-bg);
+            border-left: 4px solid var(--primary-color);
+            padding: 15px 20px;
+            margin-top: 20px;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.95em;
+        }
+
+        strong {
+            font-weight: 600;
+        }
+
+        .example {
+            margin-top: 10px;
+            color: var(--text-color);
+            opacity: 0.9;
         }
     </style>
 </head>
 <body>
+    <div class="container">
+        <header>
+            <h1>□埼玉大学管弦楽団　OBOG会　設立構想</h1>
+        </header>
 
-    <div class="slide-container" id="container">
-        <section class="slide">
-            <div class="slide-content">
-                <h1>埼玉大学管弦楽団<br>OBOG会 設立構想</h1>
-                <p style="text-align: center; margin-top: 2rem;">
-                    「持続可能な支援」と「全世代の繋がり」を<br>テクノロジーで実現する
-                </p>
-                <p style="text-align: center; color: #888;">発表者：菊野 奏良</p>
+        <section>
+            <h2>目的</h2>
+            <ul>
+                <li>全世代横断的なOBOGの繋がりをつくること。</li>
+                <li>現役の団を支援する枠組みを確立すること。</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>組織</h2>
+            <ul>
+                <li>従来こういった会では、会長を中心として幹部が組織され、実務的な負担もここに集中してしまうという欠点があった。</li>
+                <li>これを避けるため、会長を中心とした幹部による運営は行わず、各代から中心となる1名のアンバサダー（代議員のようなもの）を選出し、アンバサダーによる合議体が会の重要な意思決定に携わる形式（アンバサダー制）の会運営を確立する。</li>
+                <li>届出等に必要となる会の代表者としての会長のみ1名選出する必要があるため、卒団直後（=大学卒業後の新卒または大学院1年生）の卒団生1名の名義を、会長として使用させていただく。</li>
+            </ul>
+            <div class="note">
+                ※従来の組織では会長や副会長が担うような実務的な要素（議事整理、進行、会計など）は、新たに開発する後援会運営システム【CO-next】に集約し、ほとんどをこのシステムに担わせる。
             </div>
         </section>
 
-        <section class="slide">
-            <div class="slide-content">
-                <h2>1. 設立目的</h2>
-                <ul>
-                    <li><strong>全世代横断的な繋がり：</strong> 世代を超えたOBOGのネットワーク構築</li>
-                    <li><strong>現役支援の確立：</strong> 経済的に厳しい現役団を支える枠組み作り</li>
-                </ul>
-            </div>
+        <section>
+            <h2>活動</h2>
+            <ul>
+                <li>交流、支援、広報の3本を活動の柱とする。</li>
+                <li class="no-bullet"><strong>交流︰</strong>OBOG同士の交流および現役団とOBOGの交流。現状はOBOGオケが代ごとに分散して存在しているが、この活動はそれぞれ尊重しつつ、全世代横断的な交流の場を（オンライン／オフライン）いずれの形でも設ける。</li>
+                <li class="no-bullet"><strong>支援︰</strong>現役団、および現存するOBOGオケへの支援。昨今の物価高等によりオーケストラの運営コストは跳ね上がっており、特に学生が運営するサークルとしての現役団は経済的に厳しい状態が続いている。基本的に、OBOG会の会費そのものは、運営資金を除いてすべて寄付金として現役団に寄付する。さらに、大規模な出費（例︰打楽器の修理等）が見込まれる際は、ピンポイント支援として寄付型クラウドファンディングを参考にした形式のプロジェクトを都度作成することにより、用途指定の寄付が可能なシステムを構築する。</li>
+                <li class="no-bullet"><strong>広報︰</strong>現役団やOBOGオケの演奏会情報などの広報。全世代のOBOGや、その繋がりで多くの人々にアプローチできる。</li>
+            </ul>
         </section>
 
-        <section class="slide">
-            <div class="slide-content">
-                <h2>2. 組織体制「アンバサダー制」</h2>
-                <ul>
-                    <li><strong>脱・幹部集中型：</strong> 特定の個人への負担を回避</li>
-                    <li><strong>合議制：</strong> 各代の「アンバサダー」による意思決定</li>
-                    <li><strong>会長名義：</strong> 卒団直後のメンバーが1年交代で担当</li>
-                    <li><strong>システム集約：</strong> 実務は「CO-next」が担当</li>
-                </ul>
+        <section>
+            <h2>運営</h2>
+            <ul>
+                <li class="no-bullet"><strong>・正会員︰</strong>入会金（1,000円程度）年会費（1000円/年 程度）を支払うことで資格を得る。</li>
+                <li class="no-bullet"><strong>・準会員︰</strong>埼玉大学管弦楽団を卒団（退団の場合は任意）したメンバー全員に資格がある。</li>
+            </ul>
+            <div class="note">
+                ※継続的な寄付金を支払うメンバーが正会員、会費は支払わず、コミュニティにのみ参加するメンバーを準会員という認識。ただし、準会員も前述のピンポイント支援は可能。
             </div>
+            <ul>
+                <li class="no-bullet" style="margin-top: 12px;"><strong>・現役団員︰</strong>必要な支援を明確にするため、またOBOG会員の寄付インセンティブ向上のため、【CO-next】システム内の投稿機能を使用して、都度簡単な活動報告を実施してもらう。</li>
+            </ul>
         </section>
 
-        <section class="slide">
-            <div class="slide-content">
-                <h2>3. 活動の3本柱</h2>
-                <ul>
-                    <li><strong>交流：</strong> オンライン・オフラインでの全世代交流</li>
-                    <li><strong>支援：</strong> 会費の現役寄付 ＆ スポット支援（クラファン形式）</li>
-                    <li><strong>広報：</strong> 現役・OBOGオケの演奏会情報発信</li>
-                </ul>
-            </div>
-        </section>
-
-        <section class="slide">
-            <div class="slide-content">
-                <h2>4. 運営システム【CO-next】</h2>
-                <ul>
-                    <li><strong>自動化：</strong> 名簿作成、会費集金、寄付管理をシステム化</li>
-                    <li><strong>名簿：</strong> アプリ登録時の情報から代別名簿を自動生成</li>
-                    <li><strong>負担軽減：</strong> 会員間連絡以外のほぼすべての事務を自動実施</li>
-                </ul>
-            </div>
-        </section>
-
-        <section class="slide">
-            <div class="slide-content">
-                <h2>5. 会員規定と現役の役割</h2>
-                <ul>
-                    <li><strong>正会員：</strong> 入会金・年会費（各1,000円程度）の継続支援者</li>
-                    <li><strong>準会員：</strong> 卒団生全員。会費なし、コミュニティ参加可能</li>
-                    <li><strong>現役団員：</strong> アプリを通じた定期的な活動報告の実施</li>
-                </ul>
+        <section>
+            <h2>後援会運営システム【CO-next】</h2>
+            <ul>
+                <li>会運営の実務負担を個人に集中させず、責任の分散と運営雑務の実行を可能にするシステムを現在開発中。</li>
+                <li>詳細はデモページを参照いただきたい。</li>
+                <li>名簿作成、会費集金、寄付、連絡等、ほぼ全ての実務をシステム上で実施可能。そのうち、会員から会員への連絡等の要素を除いて、システムによる自動実施を目指す。</li>
+            </ul>
+            <div class="example">
+                例）名簿作成︰会員一人ひとりがアプリ登録時に入力することで、自動的に代毎の名簿を作成。
             </div>
         </section>
     </div>
-
-    <div class="progress" id="progress"></div>
-
-    <div class="controls">
-        <button id="prevBtn" disabled>前へ</button>
-        <button id="nextBtn">次へ</button>
-    </div>
-
-    <script>
-        const container = document.getElementById('container');
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
-        const progress = document.getElementById('progress');
-        const slides = document.querySelectorAll('.slide');
-        
-        let currentSlide = 0;
-
-        function updateSlide() {
-            container.style.transform = `translateX(-${currentSlide * 100}vw)`;
-            prevBtn.disabled = currentSlide === 0;
-            nextBtn.disabled = currentSlide === slides.length - 1;
-            progress.style.width = `${((currentSlide + 1) / slides.length) * 100}%`;
-        }
-
-        nextBtn.addEventListener('click', () => {
-            if (currentSlide < slides.length - 1) {
-                currentSlide++;
-                updateSlide();
-            }
-        });
-
-        prevBtn.addEventListener('click', () => {
-            if (currentSlide > 0) {
-                currentSlide--;
-                updateSlide();
-            }
-        });
-
-        // キーボード操作
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight' || e.key === ' ') nextBtn.click();
-            if (e.key === 'ArrowLeft') prevBtn.click();
-        });
-    </script>
 </body>
 </html>
+
