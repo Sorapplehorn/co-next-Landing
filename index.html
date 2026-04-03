@@ -70,17 +70,27 @@
 <body class="antialiased">
 
     <!-- Global Nav -->
-    <nav class="bg-white border-b border-slate-200 sticky top-0 z-50 h-16 shadow-sm">
-        <div class="max-w-5xl mx-auto px-5 h-full flex items-center justify-between">
-            <div class="font-bold text-slate-800">埼玉大学管弦楽団 OBOG会 設立構想</div>
-            <div class="flex gap-4 h-full">
-                <button onclick="switchMainView('lp')" id="tab-lp" class="px-1.5 font-bold text-sm h-full nav-active transition-colors">構想資料</button>
-                <button onclick="switchMainView('demo')" id="tab-demo" class="px-2 font-bold text-sm h-full text-slate-500 hover:text-slate-800 transition-colors flex items-center gap-1">
-                    <i data-lucide="smartphone" class="w-4 h-4"></i> アプリデモ
-                </button>
-            </div>
+    <nav class="bg-white border-b border-slate-200 sticky top-0 z-50 min-h-[4rem] shadow-sm">
+    <div class="max-w-5xl mx-auto px-5 py-3 sm:py-0 min-h-[4rem] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
+        
+        <div class="font-bold text-slate-800 text-[15px] sm:text-base leading-tight">
+            埼玉大学管弦楽団 <br class="block sm:hidden">
+            <span class="whitespace-nowrap">OBOG会 設立構想</span>
         </div>
-    </nav>
+
+        <div class="flex gap-4 items-center whitespace-nowrap self-end sm:self-auto">
+            <button onclick="switchMainView('lp')" id="tab-lp" 
+                class="px-1.5 font-bold text-sm h-full nav-active transition-colors py-1">
+                構想資料
+            </button>
+            <button onclick="switchMainView('demo')" id="tab-demo" 
+                class="px-2 font-bold text-sm h-full text-slate-500 hover:text-slate-800 transition-colors flex items-center gap-1 py-1">
+                <i data-lucide="smartphone" class="w-4 h-4"></i> アプリデモ
+            </button>
+        </div>
+    </div>
+</nav>
+
 
     <!-- ==========================================
          LP VIEW (構想資料)
