@@ -1,452 +1,321 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>埼玉大学管弦楽団 OBOG会 設立構想 & CO-next</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <style>
-        body {
-            font-family: 'Noto Sans JP', sans-serif;
-            background-color: #f8fafc;
-            color: #334155;
-            margin: 0;
-            padding: 0;
-            line-height: 1.8;
-        }
-        :root { color-scheme: light; }
-        
-        .view-section { display: none; }
-        .view-section.active { display: block; }
-        
-        .demo-frame {
-            max-width: 414px;
-            margin: 0 auto;
-            background: #ffffff;
-            height: 800px;
-            max-height: 85vh;
-            border-radius: 2rem;
-            border: 8px solid #1e293b;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-        
-        .demo-tab-content { display: none; }
-        .demo-tab-content.active { display: block; }
-
-        .nav-active {
-            border-bottom: 2px solid #0284c7;
-            color: #0284c7;
-        }
-
-        /* 箇条書きのスタイル調整 */
-        .concept-list { list-style-type: none; padding-left: 0; }
-        .concept-list li { position: relative; padding-left: 1.5em; margin-bottom: 0.5rem; }
-        .concept-list li::before { content: "・"; position: absolute; left: 0; color: #64748b; }
-        .concept-list .no-bullet { padding-left: 0; }
-        .concept-list .no-bullet::before { content: none; }
-        
-        h2.section-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #1e293b;
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid #e2e8f0;
-            display: flex;
-            align-items: center;
-        }
-        h2.section-title::before {
-            content: "◯";
-            color: #0284c7;
-            margin-right: 0.5rem;
-            font-size: 1.25rem;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>埼玉大学 形態形成学研究室向け 就活おすすめ企業100社ファインダー</title>
+<script src="[https://cdn.tailwindcss.com](https://cdn.tailwindcss.com)"></script>
+<script src="[https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js](https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js)"></script>
+<link href="[https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap](https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap)" rel="stylesheet">
+<style>
+body {
+font-family: 'Plus Jakarta Sans', 'Noto Sans JP', sans-serif;
+}
+</style>
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+bio: {
+50: '#f0fdf4',
+100: '#dcfce7',
+200: '#bbf7d0',
+500: '#10b981',
+600: '#059669',
+700: '#047857',
+800: '#065f46',
+900: '#064e3b',
+}
+}
+}
+}
+}
+</script>
 </head>
-<body class="antialiased">
-
-    <!-- Global Nav -->
-    <nav class="bg-white border-b border-slate-200 sticky top-0 z-50 min-h-[4rem] shadow-sm">
-    <div class="max-w-5xl mx-auto px-5 py-3 sm:py-0 min-h-[4rem] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
-        
-        <div class="font-bold text-slate-800 text-[15px] sm:text-base leading-tight">
-            埼玉大学管弦楽団 <br class="block sm:hidden">
-            <span class="whitespace-nowrap">OBOG会 設立構想</span>
-        </div>
-
-        <div class="flex gap-4 items-center whitespace-nowrap self-end sm:self-auto">
-            <button onclick="switchMainView('lp')" id="tab-lp" 
-                class="px-1.5 font-bold text-sm h-full nav-active transition-colors py-1">
-                構想資料
-            </button>
-            <button onclick="switchMainView('demo')" id="tab-demo" 
-                class="px-2 font-bold text-sm h-full text-slate-500 hover:text-slate-800 transition-colors flex items-center gap-1 py-1">
-                <i data-lucide="smartphone" class="w-4 h-4"></i> アプリデモ
-            </button>
-        </div>
-    </div>
-</nav>
-
-
-    <!-- ==========================================
-         LP VIEW (構想資料)
-    ========================================== -->
-    <div id="view-lp" class="view-section active py-12">
-        <div class="max-w-4xl mx-auto px-6">
-            
-            <header class="mb-12">
-                <h1 class="text-2xl md:text-3xl font-bold text-slate-900 border-l-4 border-sky-600 pl-4 mb-4">
-                    埼玉大学管弦楽団　OBOG会　<br class="block sm:hidden">設立構想
-                </h1>
-            </header>
-
-            <div class="space-y-12">
-                
-                <!-- 目的 -->
-                <section class="bg-white p-8 rounded-xl shadow-sm border border-slate-200">
-                    <h2 class="section-title">目的</h2>
-                    <ul class="concept-list">
-                        <li>全世代が横断的に交流できる、新たなOBOGの繋がりを創出すること。</li>
-                        <li>現役の団員たちが、安心して音楽活動に打ち込める支援の枠組みを確立すること。</li>
-                    </ul>
-                </section>
-
-                <!-- 組織 -->
-                <section class="bg-white p-8 rounded-xl shadow-sm border border-slate-200">
-                    <h2 class="section-title">組織（アンバサダー制の導入）</h2>
-                    <ul class="concept-list">
-                        <li>これまで全世代型のOBOG会が存在しなかった理由の一つに、「会長や役員への実務負担の集中」という課題がありました。</li>
-                        <li>これを解消するため、本会では特定の個人に負担が偏る「役員集中型」の運営は行いません。代わりに、各代から1名の「アンバサダー（代議員）」を選出し、アンバサダーによる合議体で会の重要な意思決定を行う「アンバサダー制」を採用します。</li>
-                        <li>各種届出等に必要な「会の代表者（会長）」については、卒団直後（大学卒業後の新社会人、または大学院1年生）のメンバー1名に、1年交代で名義を担っていただきます。</li>
-                    </ul>
-                    <div class="mt-4 p-4 bg-slate-50 border-l-4 border-sky-600 text-sm text-slate-700">
-                        ※議事整理、進行、会計など、従来の組織で役員が担っていた実務的な要素は、新たに開発する後援会運営システム【CO-next】に集約し、システムの力で運営をサポートします。
-                    </div>
-                </section>
-
-                <!-- 活動 -->
-                <section class="bg-white p-8 rounded-xl shadow-sm border border-slate-200">
-                    <h2 class="section-title">活動</h2>
-                    <ul class="concept-list">
-                        <li>本会は、「交流」「支援」「広報」の3つを活動の柱とします。</li>
-                        <li class="no-bullet mt-4">
-                            <strong>交流︰</strong><br>
-                            OBOG同士、および現役団とOBOGの交流を促進します。現在、代ごとに分散して活動されている既存のOBOGオケの活動も尊重しつつ、オンライン・オフラインを問わず、全世代が交われる交流の場を提供します。
-                        </li>
-                        <li class="no-bullet mt-4">
-                            <strong>支援︰</strong><br>
-                            現役団、および現存するOBOGオケへの支援を行います。昨今の物価高騰によりオーケストラの運営コストは上昇しており、学生主体の現役団は経済的に厳しい状況にあります。<br>
-                            <div class="pl-4 border-l-2 border-slate-300 mt-2 text-slate-600">
-                                <p class="mb-2"><strong>① 会費（継続支援）</strong><br>本会の会費は運営資金を除き、原則としてすべて現役団への寄付金とします。（毎月、自動的に送金されます）</p>
-                                <p><strong>② スポット支援（用途指定寄付）</strong><br>打楽器の修理等、大規模な出費が見込まれる際には、寄付型クラウドファンディングのような仕組みを用い、「用途を指定したスポット支援」が可能なプロジェクトを都度立ち上げます。（現役からの証憑提出後、アンバサダーの承認をもって送金を実行します）</p>
-                            </div>
-                        </li>
-                        <li class="no-bullet mt-4">
-                            <strong>広報︰</strong><br>
-                            現役団やOBOGオケの演奏会情報などを広く発信します。全世代のOBOGネットワークを活用し、より多くの方々へアプローチすることを目指します。
-                        </li>
-                    </ul>
-                </section>
-
-                <!-- 運営 -->
-                <section class="bg-white p-8 rounded-xl shadow-sm border border-slate-200">
-                    <h2 class="section-title">運営と会員制度</h2>
-                    <ul class="concept-list">
-                        <li class="no-bullet mb-2"><strong>・正会員︰</strong>入会金（1,000円程度）および年会費（1,000円/年 程度）をお支払いいただき、継続的にご支援いただける方。</li>
-                        <li class="no-bullet"><strong>・準会員︰</strong>埼玉大学管弦楽団を卒団（退団された方も任意で可）されたすべてのメンバー。会費の負担はなく、コミュニティへの参加が可能です。</li>
-                    </ul>
-                    <div class="mt-2 text-sm text-slate-600">
-                        ※正会員・準会員を問わず、すべての会員が都度寄付を行う「スポット支援（用途指定寄付）」に参加可能です。
-                    </div>
-                    <ul class="concept-list mt-6">
-                        <li class="no-bullet">
-                            <strong>・現役団員の皆様へのお願い︰</strong><br>
-                            どのような支援が必要とされているかを明確にし、OBOG会員が支援の意義を感じやすくなるよう、システム【CO-next】を通じて定期的な「活動報告」の実施をお願いいたします。
-                        </li>
-                    </ul>
-                </section>
-
-                <!-- システム -->
-                <section class="bg-white p-8 rounded-xl shadow-sm border border-slate-200">
-                    <h2 class="section-title">後援会運営システム【CO-next】について</h2>
-                    <ul class="concept-list">
-                        <li>会運営の実務負担を個人に集中させず、責任の分散と業務の効率化を実現するための専用システムを現在開発中です。（詳細は「アプリデモ」をご参照ください）</li>
-                        <li>名簿作成、会費の集金、寄付の管理、送金、連絡事項など、運営に関わる実務のほぼすべてをシステム上で完結できます。会員間のコミュニケーション要素を除き、システムの自動化による運営を目指します。</li>
-                    </ul>
-                    <div class="mt-4 p-4 bg-slate-50 text-sm text-slate-700">
-                        <strong>例）名簿作成︰</strong>会員の皆様がアプリ登録時に入力された情報をもとに、システムが自動的に代ごとの名簿を生成します。<br>
-                        <strong>例）資金管理︰</strong>Stripe決済を用いたキャッシュレス寄付と、1円単位でのリアルタイム財務ダッシュボード機能を提供します。
-                    </div>
-                </section>
-            </div>
-            
-            <div class="mt-16 text-center">
-                <button onclick="switchMainView('demo')" class="bg-slate-800 text-white px-8 py-3 rounded-lg font-bold hover:bg-slate-700 transition-colors flex items-center justify-center gap-2 mx-auto">
-                    <i data-lucide="smartphone" class="w-5 h-5"></i> CO-next アプリデモ画面を確認する
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- ==========================================
-         DEMO VIEW (アプリ画面)
-    ========================================== -->
-    <div id="view-demo" class="view-section py-12 bg-slate-100 min-h-[calc(100vh-4rem)]">
-        
-        <div class="max-w-xl mx-auto text-center mb-8">
-            <h2 class="text-2xl font-bold text-slate-800 mb-2">CO-next 実機デモ</h2>
-            <p class="text-slate-600 text-sm">システム【CO-next】の実際の挙動を確認できます。</p>
-        </div>
-
-        <div class="demo-frame">
-            <!-- App Top Nav -->
-            <header class="bg-white px-5 py-4 border-b border-slate-100 flex items-center justify-between sticky top-0 z-20">
-                <div class="flex items-center gap-2">
-                    <div class="w-6 h-6 bg-sky-600 rounded flex items-center justify-center">
-                        <i data-lucide="music" class="w-3.5 h-3.5 text-white"></i>
-                    </div>
-                    <span class="text-lg font-bold text-slate-900">CO-next</span>
-                </div>
-                <div class="flex items-center gap-2">
-                    <div class="bg-slate-100 px-2 py-0.5 rounded text-xs font-bold text-slate-600">59th</div>
-                    <div class="w-8 h-8 bg-slate-800 rounded-full flex items-center justify-center text-white font-bold text-sm">そ</div>
-                </div>
-            </header>
-
-            <!-- App Main -->
-            <main class="h-full overflow-y-auto pb-48 p-4 bg-slate-50">
-                
-                <!-- Tab: Activity -->
-                <div id="app-tab-activity" class="demo-tab-content active space-y-4">
-                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex gap-3 mb-2">
-                        <i data-lucide="info" class="w-5 h-5 text-sky-600 flex-shrink-0"></i>
-                        <p class="text-xs text-slate-700 leading-relaxed">
-                            <strong>活動報告</strong><br>
-                            過度な指導を防ぐためコメント機能はありません。後輩たちの活動報告には「いいね」のみで応援します。
-                        </p>
-                    </div>
-
-                    <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
-                        <div class="p-4">
-                            <div class="flex items-center gap-2 mb-3">
-                                <div class="w-8 h-8 bg-slate-100 rounded-full flex items-center justify-center text-slate-500 font-bold text-xs">現</div>
-                                <div>
-                                    <div class="text-sm font-bold text-slate-800">現役会計 (61代)</div>
-                                    <div class="text-[10px] text-slate-500">今日 14:00</div>
-                                </div>
-                            </div>
-                            <p class="text-sm leading-relaxed text-slate-700 mb-3">
-                                今月のOBOG会費から支援金をいただきました！ありがとうございます。演奏会のチラシデザイン費用として大切に使わせていただきます。
-                            </p>
-                            <div class="w-full h-32 bg-slate-100 rounded-lg flex items-center justify-center border border-slate-200">
-                                <i data-lucide="image" class="w-6 h-6 text-slate-400"></i>
-                            </div>
-                        </div>
-                        <div class="px-4 pb-4 border-t border-slate-50 pt-3">
-                            <button onclick="handleLike(this)" class="flex items-center gap-1.5 px-3 py-1.5 bg-slate-50 rounded-md text-slate-600 text-xs font-bold border border-slate-200 hover:bg-slate-100 transition-colors">
-                                <i data-lucide="heart" class="w-3.5 h-3.5"></i> <span class="like-num">32</span> 応援
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Tab: Support -->
-                <div id="app-tab-support" class="demo-tab-content space-y-4">
-                    <h3 class="font-bold text-slate-800 px-1">スポット支援プロジェクト</h3>
-                    <div class="bg-white rounded-xl p-5 shadow-sm border border-slate-200">
-                        <div class="inline-flex bg-sky-100 text-sky-700 px-2 py-1 rounded text-[10px] font-bold mb-3">受付中</div>
-                        <h4 class="font-bold text-base text-slate-900 mb-2">打楽器・ティンパニ修理</h4>
-                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
-                            長年の使用で劣化したティンパニのヘッド交換とペダル調整が必要です。
-                        </p>
-                        <div class="flex justify-between text-xs font-bold mb-1">
-                            <span class="text-sky-600">¥45,000</span>
-                            <span class="text-slate-400">目標 ¥80,000</span>
-                        </div>
-                        <div class="h-2 bg-slate-100 rounded-full mb-4">
-                            <div class="h-full bg-sky-600 rounded-full" style="width: 56%"></div>
-                        </div>
-                        <button onclick="alert('Stripe決済画面へ遷移します。決済後はOBOG会口座にプールされます。')" class="w-full bg-slate-800 hover:bg-slate-700 text-white font-bold py-3 rounded-lg text-sm transition-colors">
-                            支援する (¥500〜)
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Tab: Finance -->
-                <div id="app-tab-finance" class="demo-tab-content space-y-5">
-                    <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
-                        <div class="text-xs font-bold text-slate-500 mb-1">OBOG会 口座残高</div>
-                        <div class="text-3xl font-bold text-slate-800 mb-4">¥142,508</div>
-                        
-                        <div class="grid grid-cols-2 gap-3">
-                            <div class="bg-sky-50 p-3 rounded-lg border border-sky-100">
-                                <div class="text-[10px] text-sky-700 font-bold mb-1">今月の会費・寄付</div>
-                                <div class="text-sm font-bold text-sky-900">¥42,500</div>
-                            </div>
-                            <div class="bg-slate-50 p-3 rounded-lg border border-slate-200">
-                                <div class="text-[10px] text-slate-600 font-bold mb-1">次期 自動送金予定</div>
-                                <div class="text-sm font-bold text-slate-800">¥38,000</div>
-                                <div class="text-[9px] text-slate-500 mt-0.5">※運営費差引後</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div>
-                        <h4 class="font-bold text-sm text-slate-800 px-1 mb-2">財務履歴（1円単位で公開）</h4>
-                        <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
-                            <div class="p-3 border-b border-slate-100 flex justify-between items-center">
-                                <div>
-                                    <div class="text-xs font-bold text-slate-800">月末 自動送金（会費分）</div>
-                                    <div class="text-[10px] text-slate-500">運営費差引後</div>
-                                </div>
-                                <div class="text-sm font-bold text-slate-600">-¥38,000</div>
-                            </div>
-                            <div class="p-3 border-b border-slate-100 flex justify-between items-center">
-                                <div>
-                                    <div class="text-xs font-bold text-slate-800">決済手数料 (Stripe)</div>
-                                    <div class="text-[10px] text-slate-500">自動引落</div>
-                                </div>
-                                <div class="text-sm font-bold text-slate-600">-¥1,402</div>
-                            </div>
-                            <div class="p-3 flex justify-between items-center bg-slate-50 border-b border-slate-100">
-                                <div>
-                                    <div class="text-xs font-bold text-slate-800">スポット送金（弓購入）</div>
-                                    <div class="text-[10px] text-slate-500">アンバサダー承認済</div>
-                                </div>
-                                <div class="text-sm font-bold text-slate-800">-¥50,000</div>
-                            </div>
-                            <div class="p-3 flex justify-between items-center">
-                                <div>
-                                    <div class="text-xs font-bold text-slate-800">会費入金 (第55代 O.T様)</div>
-                                    <div class="text-[10px] text-slate-500">Stripe決済</div>
-                                </div>
-                                <div class="text-sm font-bold text-sky-600">+¥1,000</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Tab: Admin -->
-                <div id="app-tab-admin" class="demo-tab-content space-y-4">
-                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex gap-3 mb-2">
-                        <i data-lucide="check-square" class="w-5 h-5 text-sky-600 flex-shrink-0"></i>
-                        <p class="text-xs text-slate-700 leading-relaxed">
-                            <strong>アンバサダー承認 (スポット支援)</strong><br>
-                            現役からの請求書等を確認し、承認してください。会費は月末に自動送金されるため承認不要です。
-                        </p>
-                    </div>
-
-                    <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm">
-                        <div class="inline-block bg-slate-100 text-slate-600 px-2 py-1 rounded text-[10px] font-bold mb-3">送金リクエスト</div>
-                        <h3 class="font-bold text-sm text-slate-900 mb-3">【使途指定】打楽器修理（ティンパニ）</h3>
-                        
-                        <div class="bg-slate-50 rounded-lg p-3 mb-4 space-y-2 border border-slate-100">
-                            <div class="flex justify-between text-xs"><span class="text-slate-500">送金リクエスト額</span><span class="text-slate-900 font-bold">¥80,000</span></div>
-                            <div class="flex justify-between text-xs"><span class="text-slate-500">現役からの証憑</span><span class="text-sky-600 font-bold underline cursor-pointer">見積書・請求書を確認</span></div>
-                        </div>
-
-                        <div class="flex justify-between text-xs font-bold mb-1">
-                            <span class="text-slate-700">承認状況: 14 / 30 代</span>
-                            <span class="text-slate-500">過半数で実行</span>
-                        </div>
-                        <div class="h-2 bg-slate-100 rounded-full mb-5">
-                            <div class="h-full bg-sky-500 rounded-full" style="width: 46%"></div>
-                        </div>
-
-                        <div class="flex gap-2">
-                            <button onclick="alert('否認しました')" class="flex-1 bg-white border border-slate-300 text-slate-600 py-2.5 rounded-lg text-xs font-bold hover:bg-slate-50 transition-colors">否認</button>
-                            <button onclick="alert('承認しました。過半数達成時に現役口座へ送金実行されます。')" class="flex-[2] bg-sky-600 hover:bg-sky-700 text-white py-2.5 rounded-lg text-xs font-bold transition-colors">承認する</button>
-                        </div>
-                    </div>
-                </div>
-
-            </main>
-
-            <!-- App Nav -->
-            <nav class="absolute bottom-0 w-full bg-white border-t border-slate-200 flex justify-around p-2 pb-6 z-30">
-                <button onclick="switchAppTab('activity')" id="app-nav-activity" class="app-nav-item text-sky-600 flex flex-col items-center gap-1 p-2 min-w-[4rem]">
-                    <i data-lucide="layout-grid" class="w-5 h-5"></i><span class="text-[10px] font-bold">報告</span>
-                </button>
-                <button onclick="switchAppTab('support')" id="app-nav-support" class="app-nav-item text-slate-400 flex flex-col items-center gap-1 p-2 min-w-[4rem]">
-                    <i data-lucide="heart" class="w-5 h-5"></i><span class="text-[10px] font-bold">支援</span>
-                </button>
-                <button onclick="switchAppTab('finance')" id="app-nav-finance" class="app-nav-item text-slate-400 flex flex-col items-center gap-1 p-2 min-w-[4rem]">
-                    <i data-lucide="bar-chart-3" class="w-5 h-5"></i><span class="text-[10px] font-bold">財務</span>
-                </button>
-                <button onclick="switchAppTab('admin')" id="app-nav-admin" class="app-nav-item text-slate-400 flex flex-col items-center gap-1 p-2 min-w-[4rem] relative">
-                    <i data-lucide="check-square" class="w-5 h-5"></i>
-                    <span class="absolute top-1 right-3 w-2 h-2 bg-red-500 rounded-full"></span>
-                    <span class="text-[10px] font-bold">承認</span>
-                </button>
-            </nav>
-        </div>
-
-    </div>
-
-    <script>
-        // Init Icons
-        lucide.createIcons();
-
-        // View Switching
-        function switchMainView(view) {
-            document.querySelectorAll('.view-section').forEach(v => v.classList.remove('active'));
-            document.getElementById('view-' + view).classList.add('active');
-            
-            const tabLp = document.getElementById('tab-lp');
-            const tabDemo = document.getElementById('tab-demo');
-            
-            if(view === 'lp') {
-                tabLp.classList.add('nav-active');
-                tabLp.classList.remove('text-slate-500');
-                tabDemo.classList.remove('nav-active');
-                tabDemo.classList.add('text-slate-500');
-                tabDemo.classList.remove('text-slate-800');
-            } else {
-                tabDemo.classList.add('nav-active');
-                tabDemo.classList.add('text-slate-800');
-                tabDemo.classList.remove('text-slate-500');
-                tabLp.classList.remove('nav-active');
-                tabLp.classList.add('text-slate-500');
-            }
-            
-            window.scrollTo(0, 0);
-        }
-
-        // App Tab Switching
-        function switchAppTab(tab) {
-            document.querySelectorAll('.demo-tab-content').forEach(t => t.classList.remove('active'));
-            document.getElementById('app-tab-' + tab).classList.add('active');
-            
-            document.querySelectorAll('.app-nav-item').forEach(i => {
-                i.classList.remove('text-sky-600');
-                i.classList.add('text-slate-400');
-            });
-            document.getElementById('app-nav-' + tab).classList.add('text-sky-600');
-            document.getElementById('app-nav-' + tab).classList.remove('text-slate-400');
-        }
-
-        // Like Interaction
-        function handleLike(btn) {
-            const countEl = btn.querySelector('.like-num');
-            const icon = btn.querySelector('i');
-            let count = parseInt(countEl.innerText);
-            
-            if(btn.classList.contains('text-pink-600')) {
-                btn.classList.remove('text-pink-600', 'bg-pink-50', 'border-pink-200');
-                btn.classList.add('text-slate-600', 'bg-slate-50', 'border-slate-200');
-                icon.style.fill = 'none';
-                countEl.innerText = count - 1;
-            } else {
-                btn.classList.add('text-pink-600', 'bg-pink-50', 'border-pink-200');
-                btn.classList.remove('text-slate-600', 'bg-slate-50', 'border-slate-200');
-                icon.style.fill = 'currentColor';
-                countEl.innerText = count + 1;
-            }
-        }
-    </script>
+<body class="bg-gray-50 text-gray-800 antialiased" x-data="jobFinder()">
+<header class="bg-gradient-to-r from-bio-900 via-bio-700 to-bio-800 text-white shadow-md">
+<div class="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+<div>
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-bio-100 text-bio-800 mb-2">
+埼玉大学大学院 理工学研究科 生命科学専攻
+</span>
+<h1 class="text-2xl sm:text-3xl font-bold tracking-tight">環境生理・形態形成学 特化型企業ファインダー100</h1>
+<p class="text-bio-100 text-sm mt-1">
+イオン輸送体・マグネシウム恒常性・光合成・酵母発現系の専門スキルを社会実装する100社
+</p>
+</div>
+<div class="text-right">
+<span class="text-xs text-bio-200 block">掲載企業数</span>
+<span class="text-3xl font-extrabold text-white" x-text="filteredCompanies.length">100</span>
+<span class="text-sm text-bio-200">/ 100 社</span>
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+<div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+<div class="lg:col-span-1 space-y-6">
+<div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 sticky top-4">
+<h2 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
+<svg class="w-5 h-5 mr-2 text-bio-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
+条件フィルター
+</h2>
+<div class="mb-4">
+<label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">キーワード検索</label>
+<div class="relative">
+<input type="text" x-model="searchQuery" placeholder="企業名、任地、職種、技術..." class="w-full pl-3 pr-10 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-bio-500 text-sm">
+<span class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+</span>
+</div>
+</div>
+<div class="mb-4">
+<label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">分野・業界</label>
+<select x-model="selectedCategory" class="w-full py-2 px-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-bio-500 text-sm bg-white">
+<option value="all">すべての業界</option>
+<option value="seed">1. 種苗・アグリ・農薬</option>
+<option value="food">2. 食品・発酵・バイオ原料</option>
+<option value="chemical">3. 化学・機能・化粧品</option>
+<option value="pharma">4. 医薬品・製薬・バイオベンチャー</option>
+<option value="analysis">5. 分析・環境・商社</option>
+</select>
+</div>
+<div class="mb-4">
+<label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">採用難易度</label>
+<select x-model="selectedDifficulty" class="w-full py-2 px-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-bio-500 text-sm bg-white">
+<option value="all">すべての難易度</option>
+<option value="最難関">最難関</option>
+<option value="難関">難関</option>
+<option value="中堅">中堅</option>
+<option value="中堅以下">中堅以下</option>
+</select>
+</div>
+<div class="mb-6">
+<label class="flex items-center space-x-3 cursor-pointer py-1">
+<input type="checkbox" x-model="saitamaNearOnly" class="h-4 w-4 text-bio-600 focus:ring-bio-500 border-gray-300 rounded">
+<span class="text-sm font-medium text-gray-700">埼玉・首都圏近郊のみ</span>
+</label>
+</div>
+<button @click="resetFilters()" class="w-full py-2 px-4 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-lg text-xs transition duration-150">
+フィルターをクリア
+</button>
+</div>
+</div>
+<div class="lg:col-span-3">
+<div class="mb-4 text-sm text-gray-600 flex justify-between items-center bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
+<div>
+条件に合致する企業: <span class="font-bold text-bio-700 text-lg" x-text="filteredCompanies.length"></span> 社
+</div>
+<div class="text-xs text-gray-400">
+※企業名をクリックすると、詳細な「研究の活かし方」を表示します。
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<template x-for="comp in filteredCompanies" :key="comp.id">
+<div class="bg-white rounded-2xl p-5 shadow-sm hover:shadow-md border border-gray-100 hover:border-bio-200 transition-all duration-200 cursor-pointer flex flex-col justify-between"
+@click="openDetail(comp)">
+<div>
+<div class="flex justify-between items-start gap-2 mb-2">
+<span :class="{
+'bg-green-50 text-green-700 border-green-200': comp.category === 'seed',
+'bg-amber-50 text-amber-700 border-amber-200': comp.category === 'food',
+'bg-blue-50 text-blue-700 border-blue-200': comp.category === 'chemical',
+'bg-purple-50 text-purple-700 border-purple-200': comp.category === 'pharma',
+'bg-teal-50 text-teal-700 border-teal-200': comp.category === 'analysis'
+}" class="text-[10px] font-bold px-2.5 py-0.5 rounded-full border" x-text="getCategoryName(comp.category)"></span>
+<span class="text-[10px] font-bold bg-gray-100 text-gray-600 px-2 py-0.5 rounded-md" x-text="comp.difficulty"></span>
+</div>
+<div class="flex items-center gap-2 mb-2">
+<h3 class="text-base font-bold text-gray-900 group-hover:text-bio-600" x-text="comp.name"></h3>
+<span x-show="comp.saitama_near" class="bg-rose-50 text-rose-700 text-[10px] px-1.5 py-0.2 rounded font-semibold border border-rose-100">埼玉近郊</span>
+</div>
+<p class="text-xs text-gray-500 mb-3 flex items-center">
+<svg class="w-3.5 h-3.5 mr-1 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+<span x-text="comp.job"></span>
+</p>
+<div class="bg-gray-50 p-2.5 rounded-lg text-xs space-y-1 mb-4">
+<div class="flex">
+<span class="text-gray-400 w-12 shrink-0">任地:</span>
+<span class="text-gray-700 truncate" x-text="comp.location"></span>
+</div>
+<div class="flex">
+<span class="text-gray-400 w-12 shrink-0">修士給:</span>
+<span class="text-gray-700 truncate font-semibold" x-text="comp.salary"></span>
+</div>
+</div>
+</div>
+<div class="border-t border-gray-100 pt-3 flex justify-between items-center text-xs text-gray-500">
+<span class="truncate pr-4" x-text="comp.work"></span>
+<span class="text-bio-600 font-bold hover:underline shrink-0 flex items-center">
+詳細
+<svg class="w-3 h-3 ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+</span>
+</div>
+</div>
+</template>
+</div>
+<div x-show="filteredCompanies.length === 0" class="text-center py-12 bg-white rounded-2xl border border-gray-100 shadow-sm mt-4">
+<svg class="w-12 h-12 mx-auto text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+<p class="text-gray-500 font-medium">該当する企業が見つかりませんでした。</p>
+<p class="text-xs text-gray-400 mt-1">検索キーワードを変更するか、フィルターをリセットしてください。</p>
+</div>
+</div>
+</div>
+</main>
+<div x-show="isDetailOpen" class="fixed inset-0 z-50 overflow-y-auto" style="display: none;" @keydown.escape.window="closeDetail()">
+<div class="fixed inset-0 bg-black bg-opacity-40 transition-opacity" @click="closeDetail()"></div>
+<div class="flex items-center justify-center min-h-screen p-4">
+<div class="bg-white rounded-2xl shadow-xl max-w-2xl w-full overflow-hidden transform transition-all z-50 border border-gray-100"
+x-show="isDetailOpen"
+x-transition:enter="transition ease-out duration-300"
+x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100">
+<div class="bg-gradient-to-r from-bio-800 to-bio-700 text-white p-6">
+<div class="flex justify-between items-start">
+<div>
+<span :class="{
+'bg-green-100 text-green-800': selectedComp.category === 'seed',
+'bg-amber-100 text-amber-800': selectedComp.category === 'food',
+'bg-blue-100 text-blue-800': selectedComp.category === 'chemical',
+'bg-purple-100 text-purple-800': selectedComp.category === 'pharma',
+'bg-teal-100 text-teal-800': selectedComp.category === 'analysis'
+}" class="text-[10px] font-bold px-2 py-0.5 rounded-full uppercase" x-text="getCategoryName(selectedComp.category)"></span>
+<h2 class="text-xl font-bold mt-2" x-text="selectedComp.name"></h2>
+</div>
+<button @click="closeDetail()" class="text-white hover:text-gray-200 bg-bio-900 bg-opacity-30 rounded-full p-1.5 focus:outline-none">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+</button>
+</div>
+</div>
+<div class="p-6 space-y-4 max-h-[70vh] overflow-y-auto">
+<div class="grid grid-cols-2 gap-4 bg-gray-50 p-4 rounded-xl text-sm">
+<div>
+<span class="block text-xs text-gray-400 font-semibold uppercase">主な任地</span>
+<span class="text-gray-800 font-medium" x-text="selectedComp.location"></span>
+</div>
+<div>
+<span class="block text-xs text-gray-400 font-semibold uppercase">修士課程初任給</span>
+<span class="text-gray-800 font-medium" x-text="selectedComp.salary"></span>
+</div>
+<div>
+<span class="block text-xs text-gray-400 font-semibold uppercase">配属職種</span>
+<span class="text-gray-800 font-medium" x-text="selectedComp.job"></span>
+</div>
+<div>
+<span class="block text-xs text-gray-400 font-semibold uppercase">採用難易度</span>
+<span class="text-gray-800 font-medium" x-text="selectedComp.difficulty"></span>
+</div>
+</div>
+<div>
+<h4 class="text-sm font-bold text-bio-800 flex items-center mb-1">
+<svg class="w-4 h-4 mr-1 text-bio-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+研究内容の活かし方（仕事内容）
+</h4>
+<p class="text-sm text-gray-700 leading-relaxed pl-5" x-text="selectedComp.work"></p>
+</div>
+<div>
+<h4 class="text-sm font-bold text-bio-800 flex items-center mb-1">
+<svg class="w-4 h-4 mr-1 text-bio-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3.895-3 2s1.343 2 3 2 3.895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+待遇・福利厚生
+</h4>
+<p class="text-sm text-gray-700 leading-relaxed pl-5" x-text="selectedComp.benefits"></p>
+</div>
+<div>
+<h4 class="text-sm font-bold text-bio-800 flex items-center mb-1">
+<svg class="w-4 h-4 mr-1 text-bio-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+特記事項 (おすすめ／懸念点)
+</h4>
+<p class="text-sm text-gray-700 leading-relaxed pl-5" x-text="selectedComp.notes"></p>
+</div>
+</div>
+<div class="bg-gray-50 px-6 py-4 flex justify-between items-center border-t border-gray-100">
+<span x-show="selectedComp.saitama_near" class="bg-rose-50 text-rose-700 text-xs px-2.5 py-1 rounded-md font-semibold border border-rose-100">
+埼玉大からのアクセス良好
+</span>
+<span x-show="!selectedComp.saitama_near" class="text-gray-400 text-xs">
+地方主要研究拠点など
+</span>
+<div class="flex gap-2">
+<button @click="closeDetail()" class="py-2 px-4 bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 font-semibold rounded-lg text-sm transition">
+閉じる
+</button>
+<a :href="selectedComp.url" target="_blank" class="py-2 px-4 bg-bio-600 hover:bg-bio-700 text-white font-semibold rounded-lg text-sm transition inline-flex items-center">
+一次採用情報を見る
+<svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer class="bg-gray-900 text-gray-400 py-8 border-t border-gray-800 mt-12 text-center text-xs">
+<p class="mb-2">埼玉大学大学院理工学研究科生命科学専攻形態形成学研究室 キャリア支援システム</p>
+<p>© 2026 Career Path Support System for Morphogenesis Bio-Lab. All rights reserved.</p>
+</footer>
+<script>
+function jobFinder() {
+return {
+searchQuery: '',
+selectedCategory: 'all',
+selectedDifficulty: 'all',
+saitamaNearOnly: false,
+isDetailOpen: false,
+selectedComp: {},
+// 100社データ配列
+companies:,
+// フィルタロジック
+get filteredCompanies() {
+return this.companies.filter(comp => {
+// 検索フィルター
+const matchesSearch = this.searchQuery === '' |
+|
+comp.name.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+comp.location.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+comp.job.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+comp.work.toLowerCase().includes(this.searchQuery.toLowerCase());
+// 分野・業界フィルター
+const matchesCategory = this.selectedCategory === 'all' |
+| comp.category === this.selectedCategory;
+// 難易度フィルター
+const matchesDifficulty = this.selectedDifficulty === 'all' |
+| comp.difficulty === this.selectedDifficulty;
+// 埼玉近郊フィルター
+const matchesSaitama =!this.saitamaNearOnly |
+| comp.saitama_near === true;
+return matchesSearch && matchesCategory && matchesDifficulty && matchesSaitama;
+});
+},
+// 業界コードの日本語変換
+getCategoryName(cat) {
+const names = {
+seed: '1. 種苗・アグリ・農薬',
+food: '2. 食品・発酵・バイオ原料',
+chemical: '3. 化学・機能・化粧品',
+pharma: '4. 医薬品・製薬・バイオ',
+analysis: '5. 分析・環境・商社'
+};
+return names[cat] |
+| cat;
+},
+// 詳細のオープン/クローズ
+openDetail(comp) {
+this.selectedComp = comp;
+this.isDetailOpen = true;
+},
+closeDetail() {
+this.isDetailOpen = false;
+},
+// フィルターリセット
+resetFilters() {
+this.searchQuery = '';
+this.selectedCategory = 'all';
+this.selectedDifficulty = 'all';
+this.saitamaNearOnly = false;
+}
+}
+}
+</script>
 </body>
 </html>
