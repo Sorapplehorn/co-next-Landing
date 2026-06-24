@@ -1,321 +1,424 @@
+GitHub Pages デプロイ用ファイル:GitHub Pages デプロイ用ファイル:index.html
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>埼玉大学 形態形成学研究室向け 就活おすすめ企業100社ファインダー</title>
-<script src="[https://cdn.tailwindcss.com](https://cdn.tailwindcss.com)"></script>
-<script src="[https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js](https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js)"></script>
-<link href="[https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap](https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap)" rel="stylesheet">
-<style>
-body {
-font-family: 'Plus Jakarta Sans', 'Noto Sans JP', sans-serif;
-}
-</style>
-<script>
-tailwind.config = {
-theme: {
-extend: {
-colors: {
-bio: {
-50: '#f0fdf4',
-100: '#dcfce7',
-200: '#bbf7d0',
-500: '#10b981',
-600: '#059669',
-700: '#047857',
-800: '#065f46',
-900: '#064e3b',
-}
-}
-}
-}
-}
-</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>給与・手取り 計算ナビ</title>
+  
+  <!-- Tailwind CSS (JIT CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- React & ReactDOM (Production) -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  
+  <!-- Babel Standalone (ブラウザ上でJSXをコンパイルするためのもの) -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <!-- Firebase SDK Compat (ES Modulesを使わずに動く互換ライブラリ) -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
+  <style>
+    /* アニメーション用の簡単なユーティリティクラス */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in {
+      animation: fadeIn 0.3s ease-out forwards;
+    }
+  </style>
 </head>
-<body class="bg-gray-50 text-gray-800 antialiased" x-data="jobFinder()">
-<header class="bg-gradient-to-r from-bio-900 via-bio-700 to-bio-800 text-white shadow-md">
-<div class="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
-<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-<div>
-<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-bio-100 text-bio-800 mb-2">
-埼玉大学大学院 理工学研究科 生命科学専攻
-</span>
-<h1 class="text-2xl sm:text-3xl font-bold tracking-tight">環境生理・形態形成学 特化型企業ファインダー100</h1>
-<p class="text-bio-100 text-sm mt-1">
-イオン輸送体・マグネシウム恒常性・光合成・酵母発現系の専門スキルを社会実装する100社
-</p>
-</div>
-<div class="text-right">
-<span class="text-xs text-bio-200 block">掲載企業数</span>
-<span class="text-3xl font-extrabold text-white" x-text="filteredCompanies.length">100</span>
-<span class="text-sm text-bio-200">/ 100 社</span>
-</div>
-</div>
-</div>
-</header>
-<main class="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
-<div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
-<div class="lg:col-span-1 space-y-6">
-<div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 sticky top-4">
-<h2 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
-<svg class="w-5 h-5 mr-2 text-bio-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
-条件フィルター
-</h2>
-<div class="mb-4">
-<label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">キーワード検索</label>
-<div class="relative">
-<input type="text" x-model="searchQuery" placeholder="企業名、任地、職種、技術..." class="w-full pl-3 pr-10 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-bio-500 text-sm">
-<span class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400">
-<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-</span>
-</div>
-</div>
-<div class="mb-4">
-<label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">分野・業界</label>
-<select x-model="selectedCategory" class="w-full py-2 px-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-bio-500 text-sm bg-white">
-<option value="all">すべての業界</option>
-<option value="seed">1. 種苗・アグリ・農薬</option>
-<option value="food">2. 食品・発酵・バイオ原料</option>
-<option value="chemical">3. 化学・機能・化粧品</option>
-<option value="pharma">4. 医薬品・製薬・バイオベンチャー</option>
-<option value="analysis">5. 分析・環境・商社</option>
-</select>
-</div>
-<div class="mb-4">
-<label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">採用難易度</label>
-<select x-model="selectedDifficulty" class="w-full py-2 px-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-bio-500 text-sm bg-white">
-<option value="all">すべての難易度</option>
-<option value="最難関">最難関</option>
-<option value="難関">難関</option>
-<option value="中堅">中堅</option>
-<option value="中堅以下">中堅以下</option>
-</select>
-</div>
-<div class="mb-6">
-<label class="flex items-center space-x-3 cursor-pointer py-1">
-<input type="checkbox" x-model="saitamaNearOnly" class="h-4 w-4 text-bio-600 focus:ring-bio-500 border-gray-300 rounded">
-<span class="text-sm font-medium text-gray-700">埼玉・首都圏近郊のみ</span>
-</label>
-</div>
-<button @click="resetFilters()" class="w-full py-2 px-4 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-lg text-xs transition duration-150">
-フィルターをクリア
-</button>
-</div>
-</div>
-<div class="lg:col-span-3">
-<div class="mb-4 text-sm text-gray-600 flex justify-between items-center bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
-<div>
-条件に合致する企業: <span class="font-bold text-bio-700 text-lg" x-text="filteredCompanies.length"></span> 社
-</div>
-<div class="text-xs text-gray-400">
-※企業名をクリックすると、詳細な「研究の活かし方」を表示します。
-</div>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-<template x-for="comp in filteredCompanies" :key="comp.id">
-<div class="bg-white rounded-2xl p-5 shadow-sm hover:shadow-md border border-gray-100 hover:border-bio-200 transition-all duration-200 cursor-pointer flex flex-col justify-between"
-@click="openDetail(comp)">
-<div>
-<div class="flex justify-between items-start gap-2 mb-2">
-<span :class="{
-'bg-green-50 text-green-700 border-green-200': comp.category === 'seed',
-'bg-amber-50 text-amber-700 border-amber-200': comp.category === 'food',
-'bg-blue-50 text-blue-700 border-blue-200': comp.category === 'chemical',
-'bg-purple-50 text-purple-700 border-purple-200': comp.category === 'pharma',
-'bg-teal-50 text-teal-700 border-teal-200': comp.category === 'analysis'
-}" class="text-[10px] font-bold px-2.5 py-0.5 rounded-full border" x-text="getCategoryName(comp.category)"></span>
-<span class="text-[10px] font-bold bg-gray-100 text-gray-600 px-2 py-0.5 rounded-md" x-text="comp.difficulty"></span>
-</div>
-<div class="flex items-center gap-2 mb-2">
-<h3 class="text-base font-bold text-gray-900 group-hover:text-bio-600" x-text="comp.name"></h3>
-<span x-show="comp.saitama_near" class="bg-rose-50 text-rose-700 text-[10px] px-1.5 py-0.2 rounded font-semibold border border-rose-100">埼玉近郊</span>
-</div>
-<p class="text-xs text-gray-500 mb-3 flex items-center">
-<svg class="w-3.5 h-3.5 mr-1 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-<span x-text="comp.job"></span>
-</p>
-<div class="bg-gray-50 p-2.5 rounded-lg text-xs space-y-1 mb-4">
-<div class="flex">
-<span class="text-gray-400 w-12 shrink-0">任地:</span>
-<span class="text-gray-700 truncate" x-text="comp.location"></span>
-</div>
-<div class="flex">
-<span class="text-gray-400 w-12 shrink-0">修士給:</span>
-<span class="text-gray-700 truncate font-semibold" x-text="comp.salary"></span>
-</div>
-</div>
-</div>
-<div class="border-t border-gray-100 pt-3 flex justify-between items-center text-xs text-gray-500">
-<span class="truncate pr-4" x-text="comp.work"></span>
-<span class="text-bio-600 font-bold hover:underline shrink-0 flex items-center">
-詳細
-<svg class="w-3 h-3 ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-</span>
-</div>
-</div>
-</template>
-</div>
-<div x-show="filteredCompanies.length === 0" class="text-center py-12 bg-white rounded-2xl border border-gray-100 shadow-sm mt-4">
-<svg class="w-12 h-12 mx-auto text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-<p class="text-gray-500 font-medium">該当する企業が見つかりませんでした。</p>
-<p class="text-xs text-gray-400 mt-1">検索キーワードを変更するか、フィルターをリセットしてください。</p>
-</div>
-</div>
-</div>
-</main>
-<div x-show="isDetailOpen" class="fixed inset-0 z-50 overflow-y-auto" style="display: none;" @keydown.escape.window="closeDetail()">
-<div class="fixed inset-0 bg-black bg-opacity-40 transition-opacity" @click="closeDetail()"></div>
-<div class="flex items-center justify-center min-h-screen p-4">
-<div class="bg-white rounded-2xl shadow-xl max-w-2xl w-full overflow-hidden transform transition-all z-50 border border-gray-100"
-x-show="isDetailOpen"
-x-transition:enter="transition ease-out duration-300"
-x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100">
-<div class="bg-gradient-to-r from-bio-800 to-bio-700 text-white p-6">
-<div class="flex justify-between items-start">
-<div>
-<span :class="{
-'bg-green-100 text-green-800': selectedComp.category === 'seed',
-'bg-amber-100 text-amber-800': selectedComp.category === 'food',
-'bg-blue-100 text-blue-800': selectedComp.category === 'chemical',
-'bg-purple-100 text-purple-800': selectedComp.category === 'pharma',
-'bg-teal-100 text-teal-800': selectedComp.category === 'analysis'
-}" class="text-[10px] font-bold px-2 py-0.5 rounded-full uppercase" x-text="getCategoryName(selectedComp.category)"></span>
-<h2 class="text-xl font-bold mt-2" x-text="selectedComp.name"></h2>
-</div>
-<button @click="closeDetail()" class="text-white hover:text-gray-200 bg-bio-900 bg-opacity-30 rounded-full p-1.5 focus:outline-none">
-<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-</button>
-</div>
-</div>
-<div class="p-6 space-y-4 max-h-[70vh] overflow-y-auto">
-<div class="grid grid-cols-2 gap-4 bg-gray-50 p-4 rounded-xl text-sm">
-<div>
-<span class="block text-xs text-gray-400 font-semibold uppercase">主な任地</span>
-<span class="text-gray-800 font-medium" x-text="selectedComp.location"></span>
-</div>
-<div>
-<span class="block text-xs text-gray-400 font-semibold uppercase">修士課程初任給</span>
-<span class="text-gray-800 font-medium" x-text="selectedComp.salary"></span>
-</div>
-<div>
-<span class="block text-xs text-gray-400 font-semibold uppercase">配属職種</span>
-<span class="text-gray-800 font-medium" x-text="selectedComp.job"></span>
-</div>
-<div>
-<span class="block text-xs text-gray-400 font-semibold uppercase">採用難易度</span>
-<span class="text-gray-800 font-medium" x-text="selectedComp.difficulty"></span>
-</div>
-</div>
-<div>
-<h4 class="text-sm font-bold text-bio-800 flex items-center mb-1">
-<svg class="w-4 h-4 mr-1 text-bio-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
-研究内容の活かし方（仕事内容）
-</h4>
-<p class="text-sm text-gray-700 leading-relaxed pl-5" x-text="selectedComp.work"></p>
-</div>
-<div>
-<h4 class="text-sm font-bold text-bio-800 flex items-center mb-1">
-<svg class="w-4 h-4 mr-1 text-bio-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3.895-3 2s1.343 2 3 2 3.895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-待遇・福利厚生
-</h4>
-<p class="text-sm text-gray-700 leading-relaxed pl-5" x-text="selectedComp.benefits"></p>
-</div>
-<div>
-<h4 class="text-sm font-bold text-bio-800 flex items-center mb-1">
-<svg class="w-4 h-4 mr-1 text-bio-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-特記事項 (おすすめ／懸念点)
-</h4>
-<p class="text-sm text-gray-700 leading-relaxed pl-5" x-text="selectedComp.notes"></p>
-</div>
-</div>
-<div class="bg-gray-50 px-6 py-4 flex justify-between items-center border-t border-gray-100">
-<span x-show="selectedComp.saitama_near" class="bg-rose-50 text-rose-700 text-xs px-2.5 py-1 rounded-md font-semibold border border-rose-100">
-埼玉大からのアクセス良好
-</span>
-<span x-show="!selectedComp.saitama_near" class="text-gray-400 text-xs">
-地方主要研究拠点など
-</span>
-<div class="flex gap-2">
-<button @click="closeDetail()" class="py-2 px-4 bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 font-semibold rounded-lg text-sm transition">
-閉じる
-</button>
-<a :href="selectedComp.url" target="_blank" class="py-2 px-4 bg-bio-600 hover:bg-bio-700 text-white font-semibold rounded-lg text-sm transition inline-flex items-center">
-一次採用情報を見る
-<svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-</a>
-</div>
-</div>
-</div>
-</div>
-</div>
-<footer class="bg-gray-900 text-gray-400 py-8 border-t border-gray-800 mt-12 text-center text-xs">
-<p class="mb-2">埼玉大学大学院理工学研究科生命科学専攻形態形成学研究室 キャリア支援システム</p>
-<p>© 2026 Career Path Support System for Morphogenesis Bio-Lab. All rights reserved.</p>
-</footer>
-<script>
-function jobFinder() {
-return {
-searchQuery: '',
-selectedCategory: 'all',
-selectedDifficulty: 'all',
-saitamaNearOnly: false,
-isDetailOpen: false,
-selectedComp: {},
-// 100社データ配列
-companies:,
-// フィルタロジック
-get filteredCompanies() {
-return this.companies.filter(comp => {
-// 検索フィルター
-const matchesSearch = this.searchQuery === '' |
-|
-comp.name.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-comp.location.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-comp.job.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-comp.work.toLowerCase().includes(this.searchQuery.toLowerCase());
-// 分野・業界フィルター
-const matchesCategory = this.selectedCategory === 'all' |
-| comp.category === this.selectedCategory;
-// 難易度フィルター
-const matchesDifficulty = this.selectedDifficulty === 'all' |
-| comp.difficulty === this.selectedDifficulty;
-// 埼玉近郊フィルター
-const matchesSaitama =!this.saitamaNearOnly |
-| comp.saitama_near === true;
-return matchesSearch && matchesCategory && matchesDifficulty && matchesSaitama;
-});
-},
-// 業界コードの日本語変換
-getCategoryName(cat) {
-const names = {
-seed: '1. 種苗・アグリ・農薬',
-food: '2. 食品・発酵・バイオ原料',
-chemical: '3. 化学・機能・化粧品',
-pharma: '4. 医薬品・製薬・バイオ',
-analysis: '5. 分析・環境・商社'
-};
-return names[cat] |
-| cat;
-},
-// 詳細のオープン/クローズ
-openDetail(comp) {
-this.selectedComp = comp;
-this.isDetailOpen = true;
-},
-closeDetail() {
-this.isDetailOpen = false;
-},
-// フィルターリセット
-resetFilters() {
-this.searchQuery = '';
-this.selectedCategory = 'all';
-this.selectedDifficulty = 'all';
-this.saitamaNearOnly = false;
-}
-}
-}
-</script>
-</body>
-</html>
+<body class="bg-slate-50 min-h-screen">
+
+  <!-- Reactのマウントポイント -->
+  <div id="root"></div>
+
+  <!-- Reactコード (Babelでトランスパイル) -->
+  <script type="text/babel">
+    const { useState, useMemo, useEffect, useRef } = React;
+
+    // ==========================================
+    // Firebase 初期化 (互換モード)
+    // ==========================================
+    let db = null;
+    let auth = null;
+    let appId = 'default-app-id';
+
+    try {
+      // 開発環境（Canvas内など）で定義されている場合にのみFirebaseを初期化
+      if (typeof __firebase_config !== 'undefined' && __firebase_config) {
+        const firebaseConfig = JSON.parse(__firebase_config);
+        firebase.initializeApp(firebaseConfig);
+        db = firebase.firestore();
+        auth = firebase.auth();
+        appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+      }
+    } catch (e) {
+      console.warn("Firebase initialization skipped or failed. Falling back to LocalStorage.", e);
+    }
+
+
+    // ==========================================
+    // 共通ヘルパー・UIコンポーネント
+    // ==========================================
+
+    const formatNum = (numStr) => {
+      if (!numStr) return '';
+      return Number(numStr).toLocaleString();
+    };
+
+    const timeStrToHours = (timeStr) => {
+      if (!timeStr) return 0;
+      const parts = timeStr.split(':');
+      const h = parseInt(parts[0], 10) || 0;
+      const m = parseInt(parts[1], 10) || 0;
+      return h + (m / 60);
+    };
+
+    const calculateNewInputValue = (currentVal, val, type) => {
+      if (val === 'C') return '';
+      if (val === 'BS') return currentVal.slice(0, -1);
+
+      if (type === 'time') {
+        if (val === ':') {
+          if (currentVal.includes(':')) return currentVal; 
+          if (currentVal === '') return '0:'; 
+          return currentVal + ':';
+        }
+        if (currentVal.includes(':')) {
+          const parts = currentVal.split(':');
+          if (parts[1].length >= 2) return currentVal; 
+          const newMin = parts[1] + val;
+          if (parseInt(newMin, 10) >= 60) return currentVal; 
+          return currentVal + val;
+        } else {
+          return currentVal + val;
+        }
+      } else {
+        if (currentVal === '' && (val === '0' || val === '00' || val === '000')) return currentVal;
+        if (currentVal.length + val.length > 9) return currentVal;
+        return currentVal + val;
+      }
+    };
+
+    const InputField = ({ id, label, placeholder, suffix, value, activeInput, onClick, isSubLabel, disabled }) => (
+      <div 
+        className={`relative p-3 border-2 rounded-xl transition-all ${
+          disabled 
+            ? 'border-gray-100 bg-gray-50/50 cursor-not-allowed opacity-50' 
+            : activeInput === id 
+              ? 'border-blue-500 bg-blue-50/50 shadow-inner cursor-pointer' 
+              : 'border-gray-200 bg-white hover:border-blue-300 cursor-pointer'
+        }`}
+        onClick={() => !disabled && onClick(id)}
+      >
+        <label className="block text-xs font-semibold text-gray-500 mb-1">
+          {label}
+          {isSubLabel && <span className="block text-[10px] font-normal text-gray-400 mt-0.5">{isSubLabel}</span>}
+        </label>
+        <div className="flex items-baseline justify-between">
+          <div className={`text-xl font-bold ${value ? 'text-gray-800' : 'text-gray-300'}`}>
+            {value ? (value.includes(':') ? value : formatNum(value)) : placeholder}
+          </div>
+          {suffix && <span className="text-sm font-medium text-gray-500 ml-2">{suffix}</span>}
+        </div>
+        {activeInput === id && !disabled && (
+          <div className="absolute right-3 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
+        )}
+      </div>
+    );
+
+    const Keypad = ({ activeInput, activeLabel, inputType, onKeyPress, onClose }) => {
+      return (
+        <div 
+          className={`fixed bottom-0 left-0 right-0 bg-gray-100 border-t border-gray-300 shadow-[0_-10px_20px_rgba(0,0,0,0.1)] transition-transform duration-300 ease-in-out z-50 ${activeInput ? 'translate-y-0' : 'translate-y-full'}`}
+        >
+          <div className="max-w-md mx-auto bg-gray-100 pb-safe">
+            <div className="flex justify-between items-center p-3 bg-white border-b">
+              <span className="text-sm font-bold text-gray-600 truncate mr-4">
+                {activeLabel} を入力中...
+              </span>
+              <button 
+                onClick={onClose}
+                className="px-4 py-1.5 bg-blue-600 text-white text-sm font-bold rounded-lg shadow-sm active:bg-blue-700 shrink-0"
+              >
+                完了
+              </button>
+            </div>
+            
+            <div className="grid grid-cols-3 gap-1 p-2">
+              {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(num => (
+                <button 
+                  key={num} 
+                  onClick={() => onKeyPress(num.toString())}
+                  className="bg-white py-4 text-2xl font-medium text-gray-800 rounded shadow-sm active:bg-gray-200"
+                >
+                  {num}
+                </button>
+              ))}
+              
+              <button 
+                onClick={() => onKeyPress(inputType === 'time' ? ':' : '00')}
+                className={`bg-white py-4 text-xl font-medium ${inputType === 'time' ? 'text-blue-600 font-bold' : 'text-gray-800'} rounded shadow-sm active:bg-gray-200`}
+              >
+                {inputType === 'time' ? ':' : '00'}
+              </button>
+              
+              <button 
+                onClick={() => onKeyPress('0')}
+                className="bg-white py-4 text-2xl font-medium text-gray-800 rounded shadow-sm active:bg-gray-200"
+              >
+                0
+              </button>
+              
+              <div className="grid grid-cols-2 gap-1">
+                <button 
+                  onClick={() => onKeyPress('C')}
+                  className="bg-red-50 text-red-600 font-bold rounded shadow-sm active:bg-red-100"
+                >
+                  C
+                </button>
+                <button 
+                  onClick={() => onKeyPress('BS')}
+                  className="bg-gray-200 text-gray-700 flex justify-center items-center rounded shadow-sm active:bg-gray-300"
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2M3 12l6.414 6.414a2 2 0 001.414.586H19a2 2 0 002-2V7a2 2 0 00-2-2h-8.172a2 2 0 00-1.414.586L3 12z" /></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    };
+
+
+    // ==========================================
+    // コンポーネント 1: 時給・残業代 計算シミュレーター
+    // ==========================================
+    const HourlyCalculator = ({ inputs, setInputs }) => {
+      const [activeInput, setActiveInput] = useState(null);
+      const containerRef = useRef(null);
+
+      const inputConfig = {
+        hourlyWage: { label: '時給', type: 'number', suffix: '円', placeholder: '1,200' },
+        scheduledTime: { label: '所定内勤務時間', subLabel: '通常のシフトで働いた時間', type: 'time', suffix: '時間', placeholder: '120:00' },
+        statutoryTime: { label: '法定内残業時間', subLabel: 'シフト超え〜1日8時間以内', type: 'time', suffix: '時間', placeholder: '5:00' },
+        overtimeTime: { label: '法定外残業時間', subLabel: '1日8時間・週40時間超え', type: 'time', suffix: '時間', placeholder: '10:00' },
+        nightTime: { label: '深夜労働時間', subLabel: '22時〜翌5時 (重複入力)', type: 'time', suffix: '時間', placeholder: '3:00' },
+        overtimeRate: { label: '法定外割増率', type: 'number', suffix: '%', placeholder: '25' },
+        nightRate: { label: '深夜割増率', type: 'number', suffix: '%', placeholder: '25' }
+      };
+
+      useEffect(() => {
+        const handleClickOutside = (event) => {
+          if (containerRef.current && !containerRef.current.contains(event.target)) setActiveInput(null);
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+      }, []);
+
+      const handleKeypadClick = (val) => {
+        if (!activeInput) return;
+        const type = inputConfig[activeInput].type;
+        setInputs(prev => ({
+          ...prev,
+          [activeInput]: calculateNewInputValue(prev[activeInput] || '', val, type)
+        }));
+      };
+
+      const results = useMemo(() => {
+        const wage = Number(inputs.hourlyWage) || 0;
+        const oRate = Number(inputs.overtimeRate) || 0;
+        const nRate = Number(inputs.nightRate) || 0;
+
+        const schedHours = timeStrToHours(inputs.scheduledTime);
+        const statHours = timeStrToHours(inputs.statutoryTime);
+        const overHours = timeStrToHours(inputs.overtimeTime);
+        const nightHours = timeStrToHours(inputs.nightTime);
+
+        const base = wage * schedHours;
+        const statutory = wage * statHours;
+        const overtimeMultiplier = 1 + (oRate / 100);
+        const overtime = wage * overtimeMultiplier * overHours;
+        const nightMultiplier = nRate / 100;
+        const night = wage * nightMultiplier * nightHours;
+        const total = base + statutory + overtime + night;
+
+        return {
+          basePay: Math.round(base),
+          statutoryPay: Math.round(statutory),
+          overtimePay: Math.round(overtime),
+          nightPay: Math.round(night),
+          totalPay: Math.round(total),
+        };
+      }, [inputs]);
+
+      return (
+        <div className="pb-80 animate-fade-in" ref={containerRef}>
+          <div className="max-w-md mx-auto px-4 mt-6 space-y-6">
+            <div className="text-center mb-4">
+              <p className="text-xs text-slate-500 font-medium bg-slate-200 inline-block px-3 py-1 rounded-full shadow-sm">
+                シフト時間から額面給与をシミュレーション
+              </p>
+            </div>
+
+            <section className="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 space-y-3">
+              <h2 className="text-sm font-bold text-gray-700 mb-2 flex items-center gap-2">
+                <span className="bg-blue-100 text-blue-600 p-1.5 rounded shadow-sm">✏️</span> 基本情報・勤務時間
+              </h2>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="col-span-2">
+                  <InputField id="hourlyWage" value={inputs.hourlyWage} activeInput={activeInput} onClick={setActiveInput} {...inputConfig.hourlyWage} />
+                </div>
+                <div className="col-span-2">
+                  <InputField id="scheduledTime" value={inputs.scheduledTime} activeInput={activeInput} onClick={setActiveInput} {...inputConfig.scheduledTime} isSubLabel={inputConfig.scheduledTime.subLabel} />
+                </div>
+                <div className="col-span-2">
+                  <InputField id="statutoryTime" value={inputs.statutoryTime} activeInput={activeInput} onClick={setActiveInput} {...inputConfig.statutoryTime} isSubLabel={inputConfig.statutoryTime.subLabel} />
+                </div>
+                <div className="col-span-2">
+                  <InputField id="overtimeTime" value={inputs.overtimeTime} activeInput={activeInput} onClick={setActiveInput} {...inputConfig.overtimeTime} isSubLabel={inputConfig.overtimeTime.subLabel} />
+                </div>
+                <div className="col-span-2">
+                  <InputField id="nightTime" value={inputs.nightTime} activeInput={activeInput} onClick={setActiveInput} {...inputConfig.nightTime} isSubLabel={inputConfig.nightTime.subLabel} />
+                </div>
+              </div>
+              <h2 className="text-sm font-bold text-gray-700 pt-3 mt-4 border-t border-gray-100 flex items-center gap-2">
+                <span className="bg-gray-100 text-gray-600 p-1.5 rounded shadow-sm">⚙️</span> 割増率の設定
+              </h2>
+              <div className="grid grid-cols-2 gap-3">
+                <InputField id="overtimeRate" value={inputs.overtimeRate} activeInput={activeInput} onClick={setActiveInput} {...inputConfig.overtimeRate} />
+                <InputField id="nightRate" value={inputs.nightRate} activeInput={activeInput} onClick={setActiveInput} {...inputConfig.nightRate} />
+              </div>
+            </section>
+
+            <section className="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
+              <h2 className="text-sm font-bold text-gray-700 mb-4 flex items-center gap-2 justify-center">
+                <span className="bg-blue-100 text-blue-600 p-1.5 rounded shadow-sm">📊</span> 計算結果（額面給与）
+              </h2>
+              <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-4 rounded-xl border border-blue-100 shadow-inner">
+                <div className="space-y-3 text-sm">
+                  <div className="flex justify-between items-center px-1">
+                    <span className="text-gray-600">基本給 (所定内)</span>
+                    <span className="font-bold text-gray-800">{results.basePay.toLocaleString()} 円</span>
+                  </div>
+                  <div className="flex justify-between items-center px-1">
+                    <span className="text-gray-600">法定内残業手当</span>
+                    <span className="font-bold text-gray-800">{results.statutoryPay.toLocaleString()} 円</span>
+                  </div>
+                  <div className="flex justify-between items-center px-1">
+                    <span className="text-gray-600">法定外残業手当</span>
+                    <span className="font-bold text-gray-800">{results.overtimePay.toLocaleString()} 円</span>
+                  </div>
+                  <div className="flex justify-between items-center px-1">
+                    <span className="text-gray-600">深夜割増手当</span>
+                    <span className="font-bold text-gray-800">{results.nightPay.toLocaleString()} 円</span>
+                  </div>
+                </div>
+                <div className="mt-4 pt-4 border-t border-blue-200/60">
+                  <div className="flex justify-between items-end px-1">
+                    <span className="text-sm font-bold text-gray-800">総支給額 (見込み)</span>
+                    <div className="text-2xl font-extrabold text-blue-700 drop-shadow-sm">
+                      {results.totalPay.toLocaleString()} <span className="text-sm font-medium text-blue-600">円</span>
+                    </div>
+                  </div>
+                  <p className="text-[10px] text-gray-500 mt-2 text-right">※ここから税金や保険料が引かれた額が手取りになります</p>
+                </div>
+              </div>
+            </section>
+          </div>
+          <Keypad activeInput={activeInput} activeLabel={activeInput ? inputConfig[activeInput].label : ''} inputType={activeInput ? inputConfig[activeInput].type : 'number'} onKeyPress={handleKeypadClick} onClose={() => setActiveInput(null)} />
+        </div>
+      );
+    };
+
+
+    // ==========================================
+    // コンポーネント 2: 月給・手取り 計算ナビ
+    // ==========================================
+    const MonthlyCalculator = ({ inputs, setInputs, isFirstYear, setIsFirstYear, isOver40, setIsOver40 }) => {
+      const [activeInput, setActiveInput] = useState(null);
+      const [viewMode, setViewMode] = useState('monthly'); 
+      const containerRef = useRef(null);
+
+      const [residentTaxMode, setResidentTaxMode] = useState('auto'); 
+      const [isSpecialCollection, setIsSpecialCollection] = useState(true); 
+
+      const inputConfig = {
+        monthly: { label: '額面月給', subLabel: '基本給＋各種手当', type: 'number', suffix: '円', placeholder: '250,000' },
+        commute: { label: '通勤交通費', subLabel: '月額', type: 'number', suffix: '円', placeholder: '15,000' },
+        bonus: { label: 'ボーナス', subLabel: '年額・概算', type: 'number', suffix: '円', placeholder: '500,000' },
+        prevYearIncome: { label: '前年の総額面給与 (年収)', subLabel: '住民税の自動計算用（賞与込）', type: 'number', suffix: '円', placeholder: '3,000,000' },
+        manualResidentTaxAnnual: { label: '住民税額 (年額)', subLabel: '決定通知書に記載されている年税額', type: 'number', suffix: '円', placeholder: '120,000' }
+      };
+
+      useEffect(() => {
+        const handleClickOutside = (event) => {
+          if (containerRef.current && !containerRef.current.contains(event.target)) setActiveInput(null);
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+      }, []);
+
+      const handleKeypadClick = (val) => {
+        if (!activeInput) return;
+        setInputs(prev => ({
+          ...prev,
+          [activeInput]: calculateNewInputValue(prev[activeInput] || '', val, 'number')
+        }));
+      };
+
+      const calculatedResidentTax = useMemo(() => {
+        if (isFirstYear) return { monthly: 0, annual: 0 };
+
+        if (residentTaxMode === 'manual') {
+          const annualVal = Number(inputs.manualResidentTaxAnnual) || 0;
+          return {
+            monthly: Math.floor(annualVal / 12),
+            annual: annualVal
+          };
+        }
+
+        const prevIncome = Number(inputs.prevYearIncome) || (Number(inputs.monthly) * 12 + (Number(inputs.bonus) || 0)) || 0;
+        if (prevIncome === 0) return { monthly: 0, annual: 0 };
+
+        let deduction = 0;
+        if (prevIncome <= 1625000) deduction = 550000;
+        else if (prevIncome <= 1800000) deduction = prevIncome * 0.4 - 100000;
+        else if (prevIncome <= 3600000) deduction = prevIncome * 0.3 + 80000;
+        else if (prevIncome <= 6600000) deduction = prevIncome * 0.2 + 440000;
+        else if (prevIncome <= 8500000) deduction = prevIncome * 0.1 + 1100000;
+        else deduction = 1950000;
+
+        const income = Math.max(0, prevIncome - deduction); 
+        const estimatedSocialIns = Math.floor(prevIncome * 0.15);
+        const taxableBasis = Math.max(0, income - estimatedSocialIns - 430000);
+        const annualTax = Math.floor(taxableBasis * 0.1) + 5000;
+        return {
+          monthly: Math.floor(annualTax / 12),
+          annual: annualTax
+        };
+      }, [inputs, isFirstYear, residentTaxMode]);
+
+      const calculation = useMemo(() => {
+        const monthlyVal = Number(inputs.monthly) || 0;
+        const bonusVal = Number(inputs.bonus) || 0;
+        const commuteVal = Number(inputs.commute) || 0;
+
+        if (monthlyVal === 0 && bonusVal === 0) return null;
+
+        const healthInsRate = 0.04835;
+        const childSupportRate = 0.00115;
+        const pensionInsRate = 0.0915;
+        const employmentInsRate = 0.005;
+        const careInsRate = isOver40 ? 0.0081 : 0;
+
+        // ==========================================
+        // 1. 月間計算
+        // ==========================================
+        const baseForSocialIns = monthlyVal + commuteVal;
+        const monthlyHealth = Math.floor(baseForSoci
